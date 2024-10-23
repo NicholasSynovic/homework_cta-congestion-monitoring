@@ -15,6 +15,7 @@ python = "^3.10"
 click = "^8.1.7"
 jsonschema = "^4.23.0"
 pytest = "^8.3.3"
+pymongo = "^4.10.1"
 
 
 [build-system]
