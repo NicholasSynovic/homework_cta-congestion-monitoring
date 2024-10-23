@@ -12,6 +12,9 @@ classifiers = ["Development Status :: 1 - Planning"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
+click = "^8.1.7"
+jsonschema = "^4.23.0"
+pytest = "^8.3.3"
 
 
 [build-system]
