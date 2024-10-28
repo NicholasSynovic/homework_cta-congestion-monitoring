@@ -1,10 +1,30 @@
 import json
+import ssl
 import time
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.poolmanager import PoolManager
 
 current_time = time.localtime()
 key = ""
+
+
+class SSLAdapter(HTTPAdapter):
+    def __init__(self, ssl_context=None, **kwargs):
+        self.ssl_context = ssl_context
+        super().__init__(**kwargs)
+
+    def init_poolmanager(self, *args, **kwargs):
+        kwargs["ssl_context"] = self.ssl_context
+        return super().init_poolmanager(*args, **kwargs)
+
+
+context = ssl.create_default_context()
+context.set_ciphers("DEFAULT:@SECLEVEL=1")
+
+session = requests.Session()
+session.mount("https://", SSLAdapter(ssl_context=context))
 
 # max mapid requests in a url is 4
 LINES = {
@@ -73,21 +93,21 @@ LINES = {
 def fetch_data(urls):
     combined_data = []
     for url in urls:
-        response = requests.get(url, timeout=10)
+        response = session.get(url)
         response.raise_for_status()
         combined_data.append(response.json())
     return combined_data
 
 
 def save_json(line_name, data, timestamp):
-    filename = f"{line_name}_line_{timestamp}.json"
+    filename = f"{line_name}/{line_name}_line_{timestamp}.json"
     with open(filename, "w") as json_file:
         json.dump({"combined_data": data}, json_file, indent=4)
 
 
 if __name__ == "__main__":
     while True:
-        timestamp = time.strftime("%m/%d_%H:%M", time.localtime())
+        timestamp = time.strftime("%m_%d_%H:%M", time.localtime())
         for line_name, urls in LINES.items():
             data = fetch_data(urls)
             save_json(line_name, data, timestamp)
