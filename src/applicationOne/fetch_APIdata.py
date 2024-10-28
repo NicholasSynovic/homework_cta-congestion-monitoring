@@ -3,6 +3,7 @@ import ssl
 import time
 
 import requests
+from requests import Response, get
 from requests.adapters import HTTPAdapter
 from urllib3.poolmanager import PoolManager
 
