@@ -128,17 +128,6 @@ def queryAPI(urls: List[str]) -> List[dict[str, Any]]:
     help="Path to store CTA L train arrivals in JSON file",
 )
 def main(key: str, line: str, inputDB: Path, outputFile: Path) -> None:
-    """
-    Steps:
-
-    1. Get CTA L stop abbreviation
-    2. Get a list of stops for a given L line (map IDs)
-    3. Construct sublists/tuples of three map IDs
-    4. Construct API calls of map ids
-    5. Query the server and get API responses
-    6. Validate API responses
-    7. Write responses to DB
-    """
     lStopAbbreviation: str = CTA_L_ABBREVIATIONS[line]
 
     con: BaseBackend = ibis.connect(resource=f"sqlite:///{inputDB}")
