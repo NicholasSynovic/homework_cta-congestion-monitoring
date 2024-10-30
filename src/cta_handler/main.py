@@ -4,6 +4,7 @@ from typing import Any, List, Tuple
 import click
 import ibis
 from ibis import BaseBackend, Table
+from pandas import DataFrame
 from requests import Response
 
 from src.common import (
@@ -111,7 +112,22 @@ def queryAPI(urls: List[str]) -> List[dict[str, Any]]:
     ),
     help="Path to CTA L train station SQLite3 database",
 )
-def main(key: str, line: str, inputDB: Path) -> None:
+@click.option(
+    "-o",
+    "--output",
+    "outputFile",
+    required=True,
+    nargs=1,
+    type=click.Path(
+        exists=False,
+        file_okay=True,
+        writable=True,
+        resolve_path=True,
+        path_type=Path,
+    ),
+    help="Path to store CTA L train arrivals in JSON file",
+)
+def main(key: str, line: str, inputDB: Path, outputFile: Path) -> None:
     """
     Steps:
 
@@ -134,7 +150,7 @@ def main(key: str, line: str, inputDB: Path) -> None:
 
     data: List[dict[str, Any]] = queryAPI(urls=apiURLs)
 
-    print(data)
+    DataFrame(data=data).T.to_json(path_or_buf=outputFile, indent=4)
 
 
 if __name__ == "__main__":
