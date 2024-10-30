@@ -8,7 +8,7 @@ from requests import Response
 
 from src.common import dict2df, extractJSONFromResponse, getQuery, validateJSON
 from src.common.schemas import LStops
-from src.l_stop_handler import API
+from src.stops import API
 
 
 def extractLongitudeLatitude(data: List[dict[str, Any]]) -> List[dict[str, Any]]:
