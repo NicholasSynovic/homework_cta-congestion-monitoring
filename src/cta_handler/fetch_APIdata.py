@@ -2,10 +2,43 @@ import json
 import ssl
 import time
 
+import click
 import requests
-from requests import Response, get
 from requests.adapters import HTTPAdapter
-from urllib3.poolmanager import PoolManager
+
+
+@click.command()
+@click.option(
+    "-k",
+    "--key",
+    "key",
+    required=True,
+    nargs=1,
+    type=str,
+    help="CTA API key",
+)
+@click.option(
+    "-l",
+    "--line",
+    "line",
+    required=True,
+    nargs=1,
+    type=click.Choice(
+        choices=[
+            "red",
+            "blue",
+            "brown",
+            "green",
+            "orange",
+            "pink",
+            "yellow",
+        ]
+    ),
+    help="CTA L train line API endpoint to access",
+)
+def main(key: str, line: str) -> None:
+    pass
+
 
 current_time = time.localtime()
 key = ""
