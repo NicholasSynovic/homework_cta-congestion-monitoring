@@ -88,3 +88,82 @@ class LStops(Schema):
                 },
             },
         }
+
+
+class TrainArrivals(Schema):
+    def __init__(self) -> None:
+        self.schema: dict[str, Any] = {
+            "$schema": "http://json-schema.org/draft-06/schema#",
+            "$ref": "#/definitions/LStops",
+            "definitions": {
+                "LStops": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "properties": {"ctatt": {"$ref": "#/definitions/Ctatt"}},
+                    "required": ["ctatt"],
+                    "title": "LStops",
+                },
+                "Ctatt": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "properties": {
+                        "tmst": {"type": "string", "format": "date-time"},
+                        "errCd": {"type": "string", "format": "integer"},
+                        "errNm": {"type": "null"},
+                        "eta": {
+                            "type": "array",
+                            "items": {"$ref": "#/definitions/Eta"},
+                        },
+                    },
+                    "required": ["errCd", "errNm", "eta", "tmst"],
+                    "title": "Ctatt",
+                },
+                "Eta": {
+                    "type": "object",
+                    "additionalProperties": False,
+                    "properties": {
+                        "staId": {"type": "string", "format": "integer"},
+                        "stpId": {"type": "string", "format": "integer"},
+                        "staNm": {"type": "string"},
+                        "stpDe": {"type": "string"},
+                        "rn": {"type": "string", "format": "integer"},
+                        "rt": {"type": "string"},
+                        "destSt": {"type": "string", "format": "integer"},
+                        "destNm": {"type": "string"},
+                        "trDr": {"type": "string", "format": "integer"},
+                        "prdt": {"type": "string", "format": "date-time"},
+                        "arrT": {"type": "string", "format": "date-time"},
+                        "isApp": {"type": "string", "format": "integer"},
+                        "isSch": {"type": "string", "format": "integer"},
+                        "isDly": {"type": "string", "format": "integer"},
+                        "isFlt": {"type": "string", "format": "integer"},
+                        "flags": {"type": "null"},
+                        "lat": {"type": ["string", "null"]},
+                        "lon": {"type": ["string", "null"]},
+                        "heading": {"type": ["string", "null"], "format": "integer"},
+                    },
+                    "required": [
+                        "arrT",
+                        "destNm",
+                        "destSt",
+                        "flags",
+                        "heading",
+                        "isApp",
+                        "isDly",
+                        "isFlt",
+                        "isSch",
+                        "lat",
+                        "lon",
+                        "prdt",
+                        "rn",
+                        "rt",
+                        "staId",
+                        "staNm",
+                        "stpDe",
+                        "stpId",
+                        "trDr",
+                    ],
+                    "title": "Eta",
+                },
+            },
+        }
