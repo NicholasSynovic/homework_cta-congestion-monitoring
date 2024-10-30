@@ -4,8 +4,8 @@ from pathlib import Path
 import click
 from pandas import DataFrame, Series
 
-from src.app2.db import DB
-from src.app2.schema import Schema
+from src.db_uploader.db import DB
+from src.db_uploader.schema import Schema
 
 
 def formatData(json: dict) -> DataFrame:
