@@ -139,7 +139,7 @@ def main(key: str, line: str, inputDB: Path, outputFile: Path) -> None:
 
     data: List[dict[str, Any]] = queryAPI(urls=apiURLs)
 
-    DataFrame(data=data).T.to_json(path_or_buf=outputFile, indent=4)
+    DataFrame(data=data).to_json(path_or_buf=outputFile, indent=4, index=False,orient="records",)
 
 
 if __name__ == "__main__":
