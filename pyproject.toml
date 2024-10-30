@@ -17,6 +17,7 @@ jsonschema = "^4.23.0"
 pytest = "^8.3.3"
 pymongo = "^4.10.1"
 pandas = "^2.2.3"
+requests = "^2.32.3"
 
 
 [build-system]
