@@ -1,8 +1,7 @@
-from abc import ABCMeta
 from typing import Any
 
 
-class Schema(ABCMeta):
+class Schema:
     pass
 
 
@@ -10,9 +9,10 @@ class LStops(Schema):
     def __init__(self) -> None:
         self.schema: dict[str, Any] = {
             "$schema": "http://json-schema.org/draft-06/schema#",
-            "$ref": "#/definitions/LStops",
+            "type": "array",
+            "items": {"$ref": "#/definitions/LStop"},
             "definitions": {
-                "LStops": {
+                "LStop": {
                     "type": "object",
                     "additionalProperties": False,
                     "properties": {
@@ -55,11 +55,6 @@ class LStops(Schema):
                         },
                     },
                     "required": [
-                        ":@computed_region_43wa_7qmu",
-                        ":@computed_region_6mkv_f3dw",
-                        ":@computed_region_awaf_s7ux",
-                        ":@computed_region_bdys_3d7i",
-                        ":@computed_region_vrxf_vc4k",
                         "ada",
                         "blue",
                         "brn",
@@ -78,7 +73,7 @@ class LStops(Schema):
                         "stop_name",
                         "y",
                     ],
-                    "title": "LStops",
+                    "title": "LStop",
                 },
                 "Location": {
                     "type": "object",

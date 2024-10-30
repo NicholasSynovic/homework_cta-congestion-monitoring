@@ -1,12 +1,27 @@
 from pathlib import Path
+from typing import Any, List
 
 import click
 import ibis
-from polars import DataFrame
+from pandas import DataFrame
 from requests import Response
 
-from src.common import dict2df, extractJSONFromResponse, getQuery
+from src.common import dict2df, extractJSONFromResponse, getQuery, validateJSON
+from src.common.schemas import LStops
 from src.l_stop_handler import API
+
+
+def extractLongitudeLatitude(data: List[dict[str, Any]]) -> List[dict[str, Any]]:
+    foo: List[dict[str, Any]] = []
+
+    bar: dict[str, Any]
+    for bar in data:
+        locationKV: dict[str, Any] = bar.pop("location")
+        bar["longitude"] = locationKV["longitude"]
+        bar["latitude"] = locationKV["latitude"]
+        foo.append(bar)
+
+    return foo
 
 
 @click.command()
@@ -27,30 +42,29 @@ def main(outputFile: Path) -> None:
     1. Get JSON response
     2. Validate JSON response
     3. Extract longitude and latitude from location key
-    4. Drop :@ keys
     5. Convert to DF
+    4. Drop :@ keys
     6. Load into DB
     """
 
     resp: Response = getQuery(url=API)
-    data: list[dict] = extractJSONFromResponse(resp=resp)
+    data: List[dict[str, Any]] = extractJSONFromResponse(resp=resp)
 
-    # from pprint import pprint as print
-    print([f'"{key}":{value}' for key, value in data[0].items()])
-    quit()
+    if validateJSON(data=data, schema=LStops().schema) is False:
+        print(
+            "ERROR: Something has changed with the Chicago Data Portal API schema",
+        )
+        exit(0)
+
+    data = extractLongitudeLatitude(data=data)
 
     df: DataFrame = dict2df(data=data)
-
-    df["longitude"] = df["location"].map_elements(lambda x: x["longitude"])
-    df["latitude"] = df["location"].map_elements(lambda x: x["latitude"])
-
-    print(df.columns)
-    quit()
+    df = df.loc[:, ~df.columns.str.startswith(":@")]
 
     con = ibis.connect(resource=f"sqlite:///{outputFile}")
-    con.create_table(name="stops", obj=df)
+    con.create_table(name="stops", obj=df, overwrite=True)
 
-    print(con.list_tables())
+    exit(0)
 
 
 if __name__ == "__main__":
