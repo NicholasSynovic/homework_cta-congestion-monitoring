@@ -14,6 +14,7 @@ class DB:
 
         self.username: str = quote_plus(string=username)
         self.password: str = quote_plus(string=password)
+
         self.uri: str = (
             f"mongodb+srv://{self.username}:{self.password}@{clusterURI}"  # noqa: E501
         )

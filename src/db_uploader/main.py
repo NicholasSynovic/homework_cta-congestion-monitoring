@@ -1,11 +1,11 @@
 from json import load
 from pathlib import Path
+from typing import Any
 
 import click
-from pandas import DataFrame, Series
 
 from src.db_uploader.db import DB
-from src.db_uploader.schema import Schema
+
 
 @click.command()
 @click.option(
@@ -48,17 +48,31 @@ from src.db_uploader.schema import Schema
 )
 def main(
     inputFile: Path,
-    schemaFile: Path,
     username: str,
     password: str,
     clusterURI: str,
 ) -> None:
-    data: dict = load(fp=open(file=inputFile))
+    """
+    Steps:
 
-    schema: Schema = Schema(schemaPath=schemaFile)
+    1. Load JSON file into memory
+    2. Connect to the MongoDB database
+    3. Ping the connection
+    4. Get the correct collection
+    5. Load data to MongoDB
+    """
+    data: dict[str, dict[str, Any]] = load(fp=open(file=inputFile))
 
-    if schema.compare(data=data) is False:
+    db: DB = DB(username=username, password=password, clusterURI=clusterURI)
+
+    if db.ping() is False:
+        print("ERROR: Cannot ping MongoDB")
         exit(1)
+
+    db.getDatabase(databaseName="cta_app")
+    db.getCollection(collectionName="arrivals")
+
+    db.writeDocumentsToCollection(documents=data)
 
 
 if __name__ == "__main__":
