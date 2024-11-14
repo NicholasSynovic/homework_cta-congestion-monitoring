@@ -2,13 +2,11 @@ from pathlib import Path
 from typing import List
 
 import click
+import cta.stops
+import cta.train
 from jsonschema import ValidationError
 from pandas import DataFrame
 from progress.bar import Bar
-
-import cta
-import cta.stops
-import cta.train
 
 
 def getArrivals(mapIDs: List[int], arrival: cta.train.Arrivals) -> dict[str, DataFrame]:
