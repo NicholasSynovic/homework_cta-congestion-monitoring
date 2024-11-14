@@ -4,9 +4,8 @@ from pathlib import Path
 from typing import List
 
 import click
+from db import DB
 from progress.bar import Bar
-
-from json2MongoDB.db import DB
 
 
 def getJSONFilePaths(dir: Path) -> List[Path]:
