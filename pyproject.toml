@@ -21,6 +21,7 @@ ibis-framework = {version = "^9.5.0", extras = ["sqlite"]}
 progress = "^1.6"
 certifi = "^2024.8.30"
 pymongo = {version = "^4.10.1", extras = ["oscp"]}
+cta = {git = "https://github.com/NicholasSynovic/tool_cta-python-api", rev = "0.0.2"}
 
 
 [build-system]

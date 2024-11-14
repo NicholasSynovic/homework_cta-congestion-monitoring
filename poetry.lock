@@ -181,6 +181,27 @@ files = [
 ]
 
 [[package]]
+name = "cta"
+version = "0.0.2"
+description = "Chicago Transit Authority (CTA) REST API bindings"
+optional = false
+python-versions = "^3.10"
+files = []
+develop = false
+
+[package.dependencies]
+click = "^8.1.7"
+jsonschema = "^4.23.0"
+pandas = "^2.2.3"
+requests = "^2.32.3"
+
+[package.source]
+type = "git"
+url = "https://github.com/NicholasSynovic/tool_cta-python-api"
+reference = "0.0.2"
+resolved_reference = "6bf53f088a70858e1473e92f777606891136df3e"
+
+[[package]]
 name = "dnspython"
 version = "2.7.0"
 description = "DNS toolkit"
@@ -1121,4 +1142,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "d186fd0b89d3cd0f02c6a3d43f757d648e54e1b1bace6130cc2755be82716879"
+content-hash = "fa4630db31d1176df521952b0c2b77dcb6c5a32efcaefac3e07c704d633cdc0b"
