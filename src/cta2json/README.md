@@ -1,10 +1,10 @@
-# CTA to JSON
+# CTA To JSON
 
 > CTA Train Arrivals REST API to JSON files
 
 ## Table of Contents
 
-- [CTA to JSON](#cta-to-json)
+- [CTA To JSON](#cta-to-json)
   - [Table of Contents](#table-of-contents)
   - [About](#about)
   - [How To Install](#how-to-install)
