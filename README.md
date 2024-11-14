@@ -1,36 +1,38 @@
-# Python Template Repository
+# CTA Congestion Monitoring
 
-> A template repository that Python projects can inherit from to ensure tooling
-> consistency
+> Application to monitor and measure the congestion of Chicago Transit Authority
+> (CTA) trains
 
 ## Table of Contents
 
-- [Python Template Repository](#python-template-repository)
+- [CTA Congestion Monitoring](#cta-congestion-monitoring)
   - [Table of Contents](#table-of-contents)
   - [About](#about)
-  - [Supported Tooling](#supported-tooling)
+  - [How To Install](#how-to-install)
+  - [Architecture](#architecture)
 
 ## About
 
-This is a template repository that is intended to be inherited by other template
-repositories *to ensure consistent common tool deployment across languages*.
+Traffic congestion can be monitored and predicted using algorithms. Existing
+implementations include Google Maps, Apple Maps, and Waze. These applications
+rely on aggregating the locations of their users as well as user reporting to
+make predictions regarding traffic congestion.
 
-This will also support *optional* tooling that services like GitHub offer in
-order to provide repository owners access to these features without them having
-to discover it themselves.
+There are currently no applications (to the authors' knowledge) that provide
+traffic congestion monitoring of public services in the United States. To
+address this, we are providing an open platform for traffic algorithms to be
+applied to the Chicago Transit Authority (CTA) L trains.
 
-## Supported Tooling
+We are limiting the scope of the application to the CTA L due to its:
 
-The following tooling is supported:
+- Well supported and documented API,
+- Breadth and depth of information, and
+- To set a reasonable and achievable goal
 
-- [Base Template Tooling](https://github.com/NicholasSynovic/template_base)
-- [Python .gitignore](.gitignore)
-- [Pypi Requirements](requirements.txt)
-  - [Poetry](.pyproject.toml)
-  - Sphinx
-- [Python pre-commit hooks](.pre-commit-config.yaml)
-  - Pyroma
-  - [isort](.isort.cfg)
-  - Black
-  - Flake8
-  - Bandit
+## How To Install
+
+See the following README for more information: [`src/README.md`](src/README.md)
+
+## Architecture
+
+TODO
