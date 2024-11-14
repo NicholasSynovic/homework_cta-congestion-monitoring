@@ -51,7 +51,7 @@ def saveJSON(dfs: dict[str, DataFrame], outputDir: Path) -> None:
 )
 @click.option(
     "-o",
-    "--ouput-dir",
+    "--output-dir",
     "outputDir",
     nargs=1,
     type=click.Path(
