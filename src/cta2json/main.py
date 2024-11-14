@@ -41,7 +41,13 @@ def saveJSON(dfs: dict[str, DataFrame], outputDir: Path) -> None:
 
 @click.command()
 @click.option(
-    "-k", "--key", "key", nargs=1, type=str, required=True, help="CTA API key"
+    "-k",
+    "--key",
+    "key",
+    nargs=1,
+    type=str,
+    required=True,
+    help="CTA API key",
 )
 @click.option(
     "-o",
