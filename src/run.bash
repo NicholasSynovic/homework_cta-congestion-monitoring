@@ -11,6 +11,31 @@ optparse.define short=c long=cluster-uri desc="MongoDB cluster URI" variable=uri
 # Source the output file ------------------------------------------------------
 source $( optparse.build )
 
+if [ "$key" == "" ]; then
+    echo "Please provide a key"
+    exit 1
+fi
+
+if [ "$jsonDir" == "" ]; then
+    echo "Please provide a JSON directory"
+    exit 1
+fi
+
+if [ "$username" == "" ]; then
+    echo "Please provide a MongoDB username"
+    exit 1
+fi
+
+if [ "$password" == "" ]; then
+    echo "Please provide a MongoDB password"
+    exit 1
+fi
+
+if [ "$uri" == "" ]; then
+    echo "Please provide a MongoDB cluser URI"
+    exit 1
+fi
+
 ./cta2json/env/bin/python3.10 ./cta2json/main.py \
     --key $key \
     --output-dir $jsonDir
@@ -20,3 +45,7 @@ source $( optparse.build )
     --username $username \
     --password $password \
     --cluster-uri $uri
+
+tar -czvf json_files.$(date +%s).tar.gz $jsonDir/*.json
+
+rm $jsonDir/*.json
