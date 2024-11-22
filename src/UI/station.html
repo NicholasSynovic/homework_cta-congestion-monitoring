@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTA Station and Train Info</title>
+    <link rel="stylesheet" href="homepage.css">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar">
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" placeholder="Search Stations">
+        </div>
+
+        <!-- Collapsible Lines -->
+        <div class="cta-line" div id="red-line" onclick="toggleStations('red')">
+            <span>Red Line</span>
+            <div>&#9660;</div>
+        </div>
+        <div id="red" class="station-list" style="display: none;">
+            <div class="red-station-item"><button onlick="fetchStationData('Howard')">Howard</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Jarvis')">Jarvis</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Morse')">Morse</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Loyola')">Loyola</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Granville')">Granville</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Thorndale')">Thorndale</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Bryn Mawr')">Bryn Mawr</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Berwyn')">Berwyn</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Argyle')">Argyle</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Lawrence')">Lawrence</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Wilson')">Wilson</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Sheridan')">Sheridan</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Addison')">Addison</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Belmont')">Belmont</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Fullerton')">Fullerton</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('North_Clybourn')">North_Clybourn</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Clark_Division')">Clark_Division</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Chicago')">Chicago</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Grand')">Grand</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Lake')">Lake</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Monroe')">Monroe</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Jackson')">Jackson</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Harrison')">Harrison</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Roosevelt')">Roosevelt</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('CermakChinatown')">CermakChinatown</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Sox35th')">Sox35th</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('47th')">47th</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('Garfield')">Garfield</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('63rd')">63rd</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('69th')">69th</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('79th')">79th</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('87th')">87th</button></div>
+            <div class="red-station-item"><button onlick="fetchStationData('95th')">95th</button></div>
+        </div>
+
+        <div class="cta-line" div id="blue-line" onclick="toggleStations('blue')">
+            <span>Blue Line</span>
+            <div>&#9660;</div>
+        </div>
+        <div id="blue" class="station-list" style="display: none;">
+            <div class="blue-station-item"><button onlick="fetchStationData('O_Hare')">O'Hare</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Rosemont')">Rosemont</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Cumberland')">Cumberland</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Harlem_O_Hare')">Harlem_O'Hare</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Jefferson_Park')">Jefferson_Park</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Montrose')">Montrose</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Irving_Park')">Irving_Park</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Addison')">Addison</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Belmont')">Belmont</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Logan_Square')">Logan_Square</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('California')">California</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Western')">Western</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Damen')">Damen</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Division')">Division</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Chicago')">Chicago</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Grand')">Grand</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Clark_Lake')">Clark_Lake</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Washington')">Washington</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Monroe')">Monroe</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Jackson')">Jackson</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('LaSalle')">LaSalle</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Clinton')">Clinton</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('UICHalsted')">UICHalsted</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Racine')">Racine</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Illinois_Medical_District')">Illinois_Medical_District</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Western_Forest_Park')">Western_Forest_Park</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Kedzie_Homan')">Kedzie_Homan</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Pulaski')">Pulaski</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Cicero')">Cicero</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Austin')">Austin</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Oak_Park')">Oak_Park</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Harlem_Forest_Park')">Harlem_Forest_Park</button></div>
+            <div class="blue-station-item"><button onlick="fetchStationData('Forest_Park')">Forest_Park</button></div>
+        </div>
+
+        <div class="cta-line" div id="brown-line" onclick="toggleStations('brown')">
+          <span>Brown Line</span>
+          <div>&#9660;</div>
+      </div>
+        <div id="brown" class="station-list" style="display: none;">
+            <div class="brown-station-item"><button onlick="fetchStationData('Kimball')">Kimball</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Kedzie')">Kedzie</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Francisco')">Francisco</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Rockwell')">Rockwell</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Western')">Western</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Damen')">Damen</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Montrose')">Montrose</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Irving Park')">Irving Park</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Addison')">Addison</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Paulina')">Paulina</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Southport')">Southport</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Belmont')">Belmont</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Wellington')">Wellington</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Diversey')">Diversey</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Fullerton')">Fullerton</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Armitage')">Armitage</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Sedgwick')">Sedgwick</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Chicago')">Chicago</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Merchandise_Mart')">Merchandise_Mart</button></div>
+            <div class="brown-station-item"><button onlick="fetchStationData('Washington_Wells')">Washington_Wells</button></div>
+        </div>
+
+        <div class="cta-line" div id="green-line" onclick="toggleStations('green')">
+          <span>Green Line</span>
+          <div>&#9660;</div>
+      </div>
+        <div id="green" class="station-list" style="display: none;">
+            <div class="green-station-item"><button onlick="fetchStationData('Harlem_Lake')">Harlem_Lake</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Oak_Park')">Oak_Park</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Ridgeland')">Ridgeland</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Austin')">Austin</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Central')">Central</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Laramie')">Laramie</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Cicero')">Cicero</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('ConservatoryCentral_Park_Drive')">ConservatoryCentral_Park_Drive</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Ashland')">Ashland</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Morgan')">Morgan</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Clinton')">Clinton</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Clark/ Lake')">Clark/ Lake</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('State_Lake')">State_Lake</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Washington_Wabash')">Washington_Wabash</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Adams_Wabash')">Adams_Wabash</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Roosevelt')">Roosevelt</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('35th_Bronzeville_IIT')">35th_Bronzeville_IIT</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Indiana')">Indiana</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('43rd')">43rd</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('47th')">47th</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('51st')">51st</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Garfield')">Garfield</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('King_Drive')">King_Drive</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Indiana')">Indiana</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('43rd')">43rd</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('47th')">47th</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Cottage_Grove')">Cottage_Grove</button></div>
+            <div class="green-station-item"><button onlick="fetchStationData('Ashland_63rd')">Ashland_63rd</button></div>
+        </div>
+
+        <div class="cta-line" div id="orange-line" onclick="toggleStations('orange')">
+          <span>Orange Line</span>
+          <div>&#9660;</div>
+      </div>
+        <div id="orange" class="station-list" style="display: none;">
+            <div class="orange-station-item"><button onlick="fetchStationData('Midway')">Midway</button></div>
+            <div class="orange-station-item"><button onlick="fetchStationData('Pulaski')">Pulaski</button></div>
+            <div class="orange-station-item"><button onlick="fetchStationData('Kedzie')">Kedzie</button></div>
+            <div class="orange-station-item"><button onlick="fetchStationData('Western')">Western</button></div>
+            <div class="orange-station-item"><button onlick="fetchStationData('35th_Archer')">35th_Archer</button></div>
+            <div class="orange-station-item"><button onlick="fetchStationData('Ashland')">Ashland</button></div>
+            <div class="orange-station-item"><button onlick="fetchStationData('Halsted')">Halsted</button></div>
+            <div class="orange-station-item"><button onlick="fetchStationData('Roosevelt')">Roosevelt</button></div>
+            <div class="orange-station-item"><button onlick="fetchStationData('Harold_Washington_Library_State_Van_Buren')">Harold_Washington_Library_State_Van_Buren</button></div>
+            <div class="orange-station-item"><button onlick="fetchStationData('Adams_Wabash')">Adams_Wabash</button></div>
+            <div class="orange-station-item"><button onlick="fetchStationData('Washington_Wabash')">Washington_Wabash</button></div>
+            <div class="orange-station-item"><button onlick="fetchStationData('Clark/ Lake')">Clark/ Lake</button></div>
+
+        </div>
+
+        <div class="cta-line" div id="yellow-line" onclick="toggleStations('yellow')">
+          <span>Yellow Line</span>
+          <div>&#9660;</div>
+      </div>
+        <div id="yellow" class="station-list" style="display: none;">
+            <div class="yellow-station-item"><button onlick="fetchStationData('Howard')">Howard</button></div>
+            <div class="yellow-station-item"><button onlick="fetchStationData('Oakton_Skokie')">Oakton_Skokie</button></div>
+            <div class="yellow-station-item"><button onlick="fetchStationData('Dempster_Skokie')">Dempster_Skokie</button></div>
+        </div>
+
+        <div class="cta-line" div id="purple-line" onclick="toggleStations('purple')">
+          <span>Purple Line</span>
+          <div>&#9660;</div>
+      </div>
+        <div id="purple" class="station-list" style="display: none;">
+           <div class="purple-station-item"><button onlick="fetchStationData('Howard')"><a href=station.html>Howard</a></button></div>
+           <div class="purple-station-item"><button onlick="fetchStationData('Howard')">Howard</button></div>
+           <div class="purple-station-item"><button onlick="fetchStationData('South_Boulevard')">South_Boulevard</button></div>
+           <div class="purple-station-item"><button onlick="fetchStationData('Main')">Main</button></div>
+           <div class="purple-station-item"><button onlick="fetchStationData('Dempster')">Dempster</button></div>
+           <div class="purple-station-item"><button onlick="fetchStationData('Davis')">Davis</button></div>
+           <div class="purple-station-item"><button onlick="fetchStationData('Foster')">Foster</button></div>
+           <div class="purple-station-item"><button onlick="fetchStationData('Noyes')">Noyes</button></div>
+           <div class="purple-station-item"><button onlick="fetchStationData('Central')">Central</button></div>
+           <div class="purple-station-item"><button onlick="fetchStationData('Linden')">Linden</button></div>
+        </div>
+
+        <div class="cta-line" div id="pink-line" onclick="toggleStations('pink')">
+          <span>Pink Line</span>
+          <div>&#9660;</div>
+      </div>
+        <div id="pink" class="station-list" style="display: none;">
+            <div class="pink-station-item"><button onlick="fetchStationData('54th_Cermak')">54th_Cermak</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Cicero')">Cicero</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Kostner')">Kostner</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Pulaski')">Pulaski</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Central_Park')">Central_Park</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Kedzie')">Kedzie</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('California')">California</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Damen')">Damen</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('18th')">18th</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Polk')">Polk</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Ashland')">Ashland</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Morgan')">Morgan</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Clinton')">Clinton</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Clark_Lake')">Clark_Lake</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('State_Lake')">State_Lake</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Washington_Wells')">Washington_Wells</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Quincy')">Quincy</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('LaSalle_Van_Buren')">LaSalle_Van_Buren</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Adams_Wabash')">Adams_Wabash</button></div>
+            <div class="pink-station-item"><button onlick="fetchStationData('Harold_Washington_Library')">Harold_Washington_Library</button></div>
+        </div>
+    </div>
+
+    <div id="main">
+        <!-- Sidebar Toggle Button -->
+        <span id="toggleSidebarButton" style="font-size:30px;cursor:pointer" onclick="toggleSidebar()">←</span>
+
+        <!-- Train Information Section -->
+        <div class="main-content">
+            <!-- Header with Train Status -->
+            <div class="header">
+                <span id="station-name">Loading Station Name...</span> <!-- Matches data.name -->
+                <span><div id="live-time"></div></span>
+            </div>
+
+            <!-- First Train Direction and Details -->
+            <div id="line-direction">Toward {Loading Direction...}</div>
+            <div class="train-info">
+                <div class="train-line">
+                    <span id="line-name">Loading Line...</span>
+                    <span id="delay-info" class="delay-info">Loading...</span>
+                </div>
+                <div class="arrival-time">
+                    <span id="arrival-time">time</span>
+                    <span class="arrival-subtime">eta</span>
+                </div>
+            </div>
+
+            <div id="line-direction-2">Toward {Loading Direction...}</div>
+            <div class="train-info">
+                <div class="train-line">
+                    <span id="line-name-2">Loading Line...</span>
+                </div>
+                <div class="arrival-time">
+                    <span id="arrival-time-2">time</span>
+                    <span class="arrival-subtime">eta</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="homepage.js"></script>
+    <script>
+        fetchStationData(stationName).then(data => {
+            if (data.error) {
+                // Handle error case
+                document.getElementById("station-name").textContent = `Error: ${data.message}`;
+            } else {
+                // Update individual elements with data
+                document.getElementById("station-name").textContent = data.name;
+                document.getElementById("line-name").textContent = data.line;
+                document.getElementById("line-direction").textContent = data.direction;
+                document.getElementById("delay-info").textContent = data.delayInfo || "No Delays";
+                document.getElementById("arrival-time").textContent = data.arrivalTime;
+
+                document.getElementById("line-direction-2").textContent = data.direction;
+                document.getElementById("delay-info-2").textContent = data.delayInfo || "No Delays";
+                document.getElementById("arrival-time-2").textContent = data.arrivalTime;
+            }
+        });
+    </script>
+</body>
+</html>
