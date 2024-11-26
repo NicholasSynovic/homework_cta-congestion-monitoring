@@ -1,33 +1,6 @@
 import typing
-import urllib.parse
 
-
-def _constructAPI(url: str, **kwargs) -> str:
-    """
-    _constructAPI _summary_
-
-    _extended_summary_
-
-    :param url: _description_
-    :type url: str
-    :return: _description_
-    :rtype: str
-    """
-    data: dict[str, typing.Any] = {}
-
-    key: str
-    val: typing.Any
-    for key, val in kwargs.items():
-        if val is None:
-            continue
-
-        if len(str(val)) == 0:
-            continue
-
-        data[key] = val
-
-    params: str = urllib.parse.urlencode(query=data)
-    return f"{url}?{params}"
+import cta.builders
 
 
 class TrainAPIBuilder:
@@ -69,7 +42,7 @@ class TrainAPIBuilder:
 
         url: str = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?outputType=JSON"  # noqa: E501
 
-        return _constructAPI(
+        return cta.builders._constructAPI(
             url=url,
             key=self.key,
             mapid=mapid,
@@ -91,7 +64,11 @@ class TrainAPIBuilder:
         """
         url: str = "http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?outputType=JSON"  # noqa: E501
 
-        return _constructAPI(url=url, key=self.key, runnumber=runnumber)
+        return cta.builders._constructAPI(
+            url=url,
+            key=self.key,
+            runnumber=runnumber,
+        )
 
     def buildLocationsAPIURL(self, key: str, rt: str) -> str:
         """
@@ -106,4 +83,4 @@ class TrainAPIBuilder:
         """
         url: str = "http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?outputType=JSON"  # noqa: E501
 
-        return _constructAPI(url=url, key=self.key, rt=rt)
+        return cta.builders._constructAPI(url=url, key=self.key, rt=rt)
