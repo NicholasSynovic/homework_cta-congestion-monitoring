@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "injest"
-version = "0.1.0"
+name = "cta"
+version = "0.0.0"
 description = ""
 authors = ["Nicholas M. Synovic <nicholas.synovic@gmail.com>"]
 readme = "README.md"
@@ -8,7 +8,6 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 requests = "^2.32.3"
-
 
 [build-system]
 requires = ["poetry-core"]

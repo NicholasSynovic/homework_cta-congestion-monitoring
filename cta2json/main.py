@@ -3,6 +3,7 @@ from typing import List
 
 import click
 import cta.stops
+import injest.cta.builders.train
 from jsonschema import ValidationError
 from pandas import DataFrame
 from progress.bar import Bar
