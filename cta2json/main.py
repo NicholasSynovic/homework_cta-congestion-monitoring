@@ -9,7 +9,9 @@ from pandas import DataFrame
 from progress.bar import Bar
 
 
-def getArrivals(mapIDs: List[int], arrival: cta.train.Arrivals) -> dict[str, DataFrame]:
+def getArrivals(
+    mapIDs: List[int], arrival: cta.train.Arrivals
+) -> dict[str, DataFrame]:  # noqa: E501
     dfs: dict[str, DataFrame] = {}
 
     with Bar("Querying arrivals API...", max=len(mapIDs)) as bar:

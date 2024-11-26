@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cta2json"
-version = "0.0.1"
+version = "0.0.0"
 description = "CTA REST API Arrivals to JSON"
 authors = ["Nicholas M. Synovic <nicholas.synovic@gmail.com>"]
 readme = "README.md"
