@@ -45,7 +45,7 @@ def test_AlertAPIBuilder() -> None:
         partial(outputType="test")
 
 
-def test_AlertAPIBuilder_buildRouteStatusAPIURL():
+def test_AlertAPIBuilder_buildRouteStatusAPIURL() -> None:
     baseURL: str = "http://www.transitchicago.com/api/1.0/routes.aspx"
     builder: cta.builders.alert.AlertAPIBuilder = cta.builders.alert.AlertAPIBuilder()
 
@@ -75,3 +75,45 @@ def test_AlertAPIBuilder_buildRouteStatusAPIURL():
 
     with pytest.raises(ValueError):
         assert partial(type=["test"])
+
+
+def test_AlertAPIBuilder_buildDetailedAlertsAPIURL() -> None:
+    baseURL: str = "http://www.transitchicago.com/api/1.0/routes.aspx"
+    builder: cta.builders.alert.AlertAPIBuilder = cta.builders.alert.AlertAPIBuilder()
+
+    partial: functools.partial = functools.partial(builder.buildDetailedAlertsAPIURL)
+
+    assert partial() == f"{baseURL}?outputType=json"
+
+    assert partial(activeonly=True) == f"{baseURL}?outputType=json&activeonly=True"
+
+    assert (
+        partial(accessibility=True) == f"{baseURL}?outputType=json&accessibility=True"
+    )
+
+    assert partial(planned=True) == f"{baseURL}?outputType=json&planned=True"
+
+    assert partial(routeid=["test"]) == f"{baseURL}?outputType=json&routeid=test"
+    assert (
+        partial(routeid=["foo", "bar"])
+        == f"{baseURL}?outputType=json&routeid=foo%2Cbar"
+    )
+
+    assert partial(stationid=["test"]) == f"{baseURL}?outputType=json&stationid=test"
+    assert (
+        partial(stationid=["foo", "bar"])
+        == f"{baseURL}?outputType=json&stationid=foo%2Cbar"
+    )
+
+    assert (
+        partial(bystartdate=20241126)
+        == f"{baseURL}?outputType=json&bystartdate=20241126"
+    )
+
+    assert partial(recentdays=10) == f"{baseURL}?outputType=json&recentdays=10"
+
+    with pytest.raises(TypeError):
+        assert partial(routeid="test")
+        assert partial(stationid="test")
+        assert partial(bystartdate="test")
+        assert partial(recentdays="test")

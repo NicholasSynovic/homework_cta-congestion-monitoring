@@ -95,33 +95,44 @@ class AlertAPIBuilder:
         activeonly: bool = None,
         accessibility: bool = None,
         planned: bool = None,
-        routeid: typing.Optional[typing.List[str | int]] | str = None,
-        stationid: typing.Optional[typing.List[str | int]] | str = None,
-        bystartdate: str = None,
+        bystartdate: int = None,
         recentdays: int = None,
+        routeid: typing.Optional[typing.List[str]] = None,
+        stationid: typing.Optional[typing.List[int]] = None,
     ) -> str:
         """
-        buildDetailedAlertsAPIURL _summary_
+        Build the Detailed Status API endpoint
 
-        _extended_summary_
-
-        :param activeonly: _description_, defaults to None
+        :param activeonly: Only get currently active alerts if True, defaults to None
         :type activeonly: bool, optional
-        :param accessibility: _description_, defaults to None
+        :param accessibility: Exclude accessibility alerts if False, defaults to None
         :type accessibility: bool, optional
-        :param planned: _description_, defaults to None
+        :param planned: Exclude common planned alerts if False, defaults to None
         :type planned: bool, optional
-        :param routeid: _description_, defaults to None
-        :type routeid: typing.Optional[typing.List[str  |  int]] | str, optional
-        :param stationid: _description_, defaults to None
-        :type stationid: typing.Optional[typing.List[str  |  int]] | str, optional
-        :param bystartdate: _description_, defaults to None
-        :type bystartdate: str, optional
-        :param recentdays: _description_, defaults to None
+        :param bystartdate: Yields events with a start date before the one specified (format: yyyyMMdd), defaults to None
+        :type bystartdate: int, optional
+        :param recentdays: Yields events that have started within *X* number of days before today, defaults to None
         :type recentdays: int, optional
-        :return: _description_
+        :param routeid: Route ids, defaults to None
+        :type routeid: typing.Optional[typing.List[str]], optional
+        :param stationid: Station ids, defaults to None
+        :type stationid: typing.Optional[typing.List[int]], optional
+        :raises TypeError: If `routeid` or `stationid` is not a list or if `bystartdate` or `recentdays` is not an int
+        :return: The Detailed Status API endpoint
         :rtype: str
-        """  # noqa: E501
+        """
+        if (routeid) and not isinstance(routeid, list):
+            raise TypeError("`routeid` must be a list")
+
+        if (stationid) and not isinstance(stationid, list):
+            raise TypeError("`stationid` must be a list")
+
+        if (bystartdate) and not isinstance(bystartdate, int):
+            raise TypeError("`bystartdate` must be a int")
+
+        if (recentdays) and not isinstance(recentdays, int):
+            raise TypeError("`recentdays` must be a int")
+
         url: str = "http://www.transitchicago.com/api/1.0/routes.aspx"
 
         return self.constructor(

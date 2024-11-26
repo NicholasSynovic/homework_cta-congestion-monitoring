@@ -11,9 +11,18 @@ class AlertAPIDirector:
     def getRouteStatus(
         self,
         timeout: int = 60,
-        type: typing.Optional[typing.List[str | int]] | str = None,
-        routeid: typing.Optional[typing.List[str | int]] | str = None,
-        stationid: typing.Optional[typing.List[str | int]] | str = None,
+        type: typing.Optional[
+            typing.List[
+                typing.Literal[
+                    "bus",
+                    "rail",
+                    "station",
+                    "systemwide",
+                ]
+            ]
+        ] = None,
+        routeid: typing.Optional[typing.List[str]] = None,
+        stationid: typing.Optional[typing.List[int]] = None,
     ) -> requests.Response:
         url: str = self.builder.buildRouteStatusAPIURL(
             type=type,
