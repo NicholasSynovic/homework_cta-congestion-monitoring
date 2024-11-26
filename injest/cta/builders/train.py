@@ -1,3 +1,4 @@
+import functools
 import typing
 
 import cta.builders
@@ -12,6 +13,11 @@ class TrainAPIBuilder:
 
     def __init__(self, key: str) -> None:
         self.key = key
+
+        self.constructor: functools.partial = functools.partial(
+            cta.builders._constructAPI,
+            key=self.key,
+        )
 
     def buildArrivalsAPIURL(
         self,
@@ -42,9 +48,8 @@ class TrainAPIBuilder:
 
         url: str = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?outputType=JSON"  # noqa: E501
 
-        return cta.builders._constructAPI(
+        return self.constructor(
             url=url,
-            key=self.key,
             mapid=mapid,
             stpid=stpid,
             max=max,
@@ -64,9 +69,8 @@ class TrainAPIBuilder:
         """
         url: str = "http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?outputType=JSON"  # noqa: E501
 
-        return cta.builders._constructAPI(
+        return self.constructor(
             url=url,
-            key=self.key,
             runnumber=runnumber,
         )
 
@@ -83,4 +87,4 @@ class TrainAPIBuilder:
         """
         url: str = "http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?outputType=JSON"  # noqa: E501
 
-        return cta.builders._constructAPI(url=url, key=self.key, rt=rt)
+        return self.constructor(url=url, rt=rt)
