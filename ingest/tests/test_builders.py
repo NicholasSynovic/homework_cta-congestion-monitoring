@@ -19,7 +19,8 @@ def test__constructAPI() -> None:
     assert partial(test1=1, test2=None) == f"{baseURL}?test1=1"
     assert partial(test1=1, test2=None, test3=3) == f"{baseURL}?test1=1&test3=3"
 
-def test___safeJoin()   ->  None:
+
+def test___safeJoin() -> None:
     partial: functools.partial = functools.partial(cta.builders._safeJoin)
 
     assert partial(data="test") == "test"
@@ -52,15 +53,25 @@ def test_AlertAPIBuilder_buildRouteStatusAPIURL():
 
     assert partial() == f"{baseURL}?outputType=json"
 
-    assert partial(type="bus") == f"{baseURL}?outputType=json&type=bus"
     assert partial(type=["bus"]) == f"{baseURL}?outputType=json&type=bus"
-    assert (
-        partial(type=["bus", "train"]) == f"{baseURL}?outputType=json&type=bus%2Ctrain"
-    )
+    assert partial(type=["bus", "rail"]) == f"{baseURL}?outputType=json&type=bus%2Crail"
 
-    assert partial(routeid="test") == f"{baseURL}?outputType=json&routeid=test"
     assert partial(routeid=["test"]) == f"{baseURL}?outputType=json&routeid=test"
     assert (
-        partial(routeid=["test", "bar"])
-        == f"{baseURL}?outputType=json&routeid=test%2Cbar"
+        partial(routeid=["foo", "bar"])
+        == f"{baseURL}?outputType=json&routeid=foo%2Cbar"
     )
+
+    assert partial(stationid=["test"]) == f"{baseURL}?outputType=json&stationid=test"
+    assert (
+        partial(stationid=["foo", "bar"])
+        == f"{baseURL}?outputType=json&stationid=foo%2Cbar"
+    )
+
+    with pytest.raises(TypeError):
+        assert partial(type="test")
+        assert partial(routeid="test")
+        assert partial(stationid="test")
+
+    with pytest.raises(ValueError):
+        assert partial(type=["test"])

@@ -45,20 +45,41 @@ class AlertAPIBuilder:
                 ]
             ]
         ] = None,
-        routeid: typing.Optional[typing.List[str]] | str = None,
-        stationid: typing.Optional[typing.List[int]] | str = None,
+        routeid: typing.Optional[typing.List[str]] = None,
+        stationid: typing.Optional[typing.List[int]] = None,
     ) -> str:
+        """
+        Build the Route Status API endpoint
+
+        :param type: Service types to query, defaults to None
+        :type type: typing.Optional[ typing.List[ typing.Literal[ `bus`, `rail`, `station`, `systemwide`, ] ] ], optional
+        :param routeid: Route ids, defaults to None
+        :type routeid: typing.Optional[typing.List[str]], optional
+        :param stationid: Station ids, defaults to None
+        :type stationid: typing.Optional[typing.List[int]], optional
+        :raises TypeError: If `type`, `routeid`, or `stationid` is not a list
+        :raises ValueError: If `type` contains values that are not `bus`, `rail`, `station`, `systemwide`
+        :return: The Route Status API endpoint
+        :rtype: str
+        """
         if (type) and not isinstance(type, list):
             raise TypeError("`type` must be a list")
 
-        _type: str
-        for _type in type:
-            try:
-                VALID_TYPE.index(_type)
-            except ValueError:
-                raise ValueError(
-                    f"`{_type}` is not a valid input to parameter `type`"
-                )  # noqa: E501
+        if (routeid) and not isinstance(routeid, list):
+            raise TypeError("`routeid` must be a list")
+
+        if (stationid) and not isinstance(stationid, list):
+            raise TypeError("`stationid` must be a list")
+
+        if type is not None:
+            _type: str
+            for _type in type:
+                try:
+                    VALID_TYPE.index(_type)
+                except ValueError:
+                    raise ValueError(
+                        f"`{_type}` is not a valid input to parameter `type`"
+                    )  # noqa: E501
 
         url: str = "http://www.transitchicago.com/api/1.0/routes.aspx"
 
