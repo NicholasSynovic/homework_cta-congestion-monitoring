@@ -1,10 +1,9 @@
 [tool.poetry]
 name = "cta2json"
-version = "0.0.0"
+version = "0.0.1"
 description = "CTA REST API Arrivals to JSON"
 authors = ["Nicholas M. Synovic <nicholas.synovic@gmail.com>"]
 readme = "README.md"
-package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.10"
