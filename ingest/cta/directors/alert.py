@@ -5,7 +5,14 @@ from cta.builders.alert import AlertAPIBuilder
 
 
 class AlertAPIDirector:
+    """
+    Construct and query Customer Alert API endpoints
+    """
+
     def __init__(self) -> None:
+        """
+        Instantiate an instance of the Alert API builder
+        """
         self.builder: AlertAPIBuilder = AlertAPIBuilder()
 
     def getRouteStatus(
@@ -24,6 +31,16 @@ class AlertAPIDirector:
         routeid: typing.Optional[typing.List[str]] = None,
         stationid: typing.Optional[typing.List[int]] = None,
     ) -> requests.Response:
+        """
+        Construct and get the response from the Route Status API.
+
+        Inherits the parameters from cta.builders.alert.AlertAPIBuilder.buildRouteStatusAPIURL
+
+        :param timeout: Timeout in seconds for when to close the HTTP connection, defaults to 60
+        :type timeout: int, optional
+        :return: The HTTP GET response
+        :rtype: requests.Response
+        """  # noqa: E501
         url: str = self.builder.buildRouteStatusAPIURL(
             type=type,
             routeid=routeid,
@@ -45,6 +62,16 @@ class AlertAPIDirector:
         routeid: typing.Optional[typing.List[str]] = None,
         stationid: typing.Optional[typing.List[int]] = None,
     ) -> str:
+        """
+        Construct and get the response from the Detailed Alert Status API.
+
+        Inherits the parameters from cta.builders.alert.AlertAPIBuilder.buildDetailedAlertsAPIURL
+
+        :param timeout: Timeout in seconds for when to close the HTTP connection, defaults to 60
+        :type timeout: int, optional
+        :return: The HTTP GET response
+        :rtype: requests.Response
+        """  # noqa: E501
         url: str = self.builder.buildDetailedAlertsAPIURL(
             activeonly=activeonly,
             accessibility=accessibility,
