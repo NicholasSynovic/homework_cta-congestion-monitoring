@@ -28,3 +28,23 @@ def _constructAPI(url: str, **kwargs) -> str:
 
     params: str = urllib.parse.urlencode(query=data)
     return f"{url}?{params}"
+
+
+def _safeJoin(data: typing.Any, sep: str = ",") -> typing.Any:
+    """
+    _safeJoin _summary_
+
+    _extended_summary_
+
+    :param data: _description_
+    :type data: typing.Any
+    :return: _description_
+    :rtype: typing.Any
+    """
+    if isinstance(data, str):
+        return data
+
+    if isinstance(data, list):
+        return f"{sep}".join(data)
+
+    return None

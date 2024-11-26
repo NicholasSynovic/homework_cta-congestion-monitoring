@@ -3,26 +3,24 @@ import typing
 
 import cta.builders
 
+SAFE_JOIN: functools.partial = functools.partial(cta.builders._safeJoin)
+VALID_TYPE: typing.List[str] = ["bus","rail","station","systemwide"]
 
 class AlertAPIBuilder:
     """
-     _summary_
+    Chicago Transit Authority (CTA) Customer Alerts API endpoint builder
 
-    _extended_summary_
-    """
+    https://www.transitchicago.com/developers/alerts/
+    """  # noqa: E501
 
     def __init__(
         self,
         outputType: typing.Literal["xml", "json"] = "json",
     ) -> None:
         """
-        __init__ _summary_
-
-        _extended_summary_
-
-        :param outputType: _description_, defaults to "json"
-        :type outputType: typing.Literal[&quot;xml&quot;, &quot;json&quot;], optional
-        :raises ValueError: _description_
+        :param outputType: Specifies the format of the response content, defaults to "json"
+        :type outputType: typing.Literal[`xml`, `json`], optional
+        :raises ValueError: If outputType is not `xml` or `json`, a ValueError is raised
         """  # noqa: E501
         if (outputType != "xml") and (outputType != "json"):
             raise ValueError("outputType must be either `xml` or `json`")
@@ -36,31 +34,36 @@ class AlertAPIBuilder:
 
     def buildRouteStatusAPIURL(
         self,
-        type: typing.Optional[typing.List[str | int]] | str = None,
-        routeid: typing.Optional[typing.List[str | int]] | str = None,
-        stationid: typing.Optional[typing.List[str | int]] | str = None,
+        type: typing.Optional[
+            typing.List[
+                typing.Literal[
+                    "bus",
+                    "rail",
+                    "station",
+                    "systemwide",
+                ]
+            ]
+        ] = None,
+        routeid: typing.Optional[typing.List[str]] | str = None,
+        stationid: typing.Optional[typing.List[int]] | str = None,
     ) -> str:
-        """
-        buildRouteStatusAPIURL _summary_
+        if not isinstance(type, list):
+            raise TypeError("`type` must be a list")
 
-        _extended_summary_
+        _type: str
+        for _type in type:
+            try:
+                VALID_TYPE.index(_type)
+            except ValueError:
+                raise ValueError(f"`{_type}` is not a valid input to parameter `type`")
 
-        :param type: _description_, defaults to None
-        :type type: typing.Optional[typing.List[str  |  int]] | str, optional
-        :param routeid: _description_, defaults to None
-        :type routeid: typing.Optional[typing.List[str  |  int]] | str, optional
-        :param stationid: _description_, defaults to None
-        :type stationid: typing.Optional[typing.List[str  |  int]] | str, optional
-        :return: _description_
-        :rtype: str
-        """  # noqa: E501
         url: str = "http://www.transitchicago.com/api/1.0/routes.aspx"
 
         return self.constructor(
             url=url,
-            type=",".join(type),
-            routeid=",".join(routeid),
-            stationid=",".join(stationid),
+            type=SAFE_JOIN(data=type),
+            routeid=SAFE_JOIN(data=routeid),
+            stationid=SAFE_JOIN(data=stationid),
         )
 
     def buildDetailedAlertsAPIURL(
@@ -102,8 +105,8 @@ class AlertAPIBuilder:
             activeonly=activeonly,
             accessibility=accessibility,
             planned=planned,
-            routeid=",".join(routeid),
-            stationid=",".join(stationid),
+            routeid=SAFE_JOIN(data=routeid),
+            stationid=SAFE_JOIN(data=stationid),
             bystartdate=bystartdate,
             recentdays=recentdays,
         )
