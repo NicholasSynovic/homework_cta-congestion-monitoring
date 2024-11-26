@@ -21,9 +21,6 @@ class AlertAPIDirector:
             stationid=stationid,
         )
 
-        resp: requests.Response = requests.get(url=url, timeout=60)
+        resp: requests.Response = requests.get(url=url, timeout=timeout)
 
         return resp
-
-
-print(AlertAPIDirector().getRouteStatus())

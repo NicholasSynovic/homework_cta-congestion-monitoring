@@ -31,9 +31,7 @@ class AlertAPIBuilder:
 
         self.constructor: functools.partial = functools.partial(
             cta.builders._constructAPI,
-            key=self.key,
-            locale=self.locale,
-            format=self.format,
+            outputType=self.outputType,
         )
 
     def buildRouteStatusAPIURL(
