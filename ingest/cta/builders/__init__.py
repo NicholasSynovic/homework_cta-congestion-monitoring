@@ -4,15 +4,15 @@ import urllib.parse
 
 def _constructAPI(url: str, **kwargs) -> str:
     """
-    _constructAPI _summary_
+    Given a URL and parameters (represented as key word arguements), create a new URL with the encoded parameters.
 
-    _extended_summary_
+    Only parameters with a non-null value are appended to the URL.
 
-    :param url: _description_
+    :param url: A URL represented as a string
     :type url: str
-    :return: _description_
+    :return: A formatted URL with non-null parameters
     :rtype: str
-    """
+    """  # noqa: E501
     data: dict[str, typing.Any] = {}
 
     key: str
@@ -30,17 +30,19 @@ def _constructAPI(url: str, **kwargs) -> str:
     return f"{url}?{params}"
 
 
-def _safeJoin(data: typing.Any, sep: str = ",") -> typing.Any:
+def _safeJoin(data: typing.Any, sep: str = ",") -> str | None:
     """
-    _safeJoin _summary_
+    Given some data, try to create a string of the data where each value is seperated by a specific char or string
 
-    _extended_summary_
+    String data is not modified. List data is joined by the seperator. All other datatypes are returned as None.
 
-    :param data: _description_
+    :param data: Data to join together
     :type data: typing.Any
-    :return: _description_
-    :rtype: typing.Any
-    """
+    :param sep: Char or string to seperate data values by, defaults to ","
+    :type sep: str, optional
+    :return: A string with each value seperated or None
+    :rtype: str | None
+    """  # noqa: E501
     if isinstance(data, str):
         return data
 

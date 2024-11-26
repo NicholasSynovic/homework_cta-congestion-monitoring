@@ -4,7 +4,8 @@ import typing
 import cta.builders
 
 SAFE_JOIN: functools.partial = functools.partial(cta.builders._safeJoin)
-VALID_TYPE: typing.List[str] = ["bus","rail","station","systemwide"]
+VALID_TYPE: typing.List[str] = ["bus", "rail", "station", "systemwide"]
+
 
 class AlertAPIBuilder:
     """
@@ -47,7 +48,7 @@ class AlertAPIBuilder:
         routeid: typing.Optional[typing.List[str]] | str = None,
         stationid: typing.Optional[typing.List[int]] | str = None,
     ) -> str:
-        if not isinstance(type, list):
+        if (type) and not isinstance(type, list):
             raise TypeError("`type` must be a list")
 
         _type: str
@@ -55,7 +56,9 @@ class AlertAPIBuilder:
             try:
                 VALID_TYPE.index(_type)
             except ValueError:
-                raise ValueError(f"`{_type}` is not a valid input to parameter `type`")
+                raise ValueError(
+                    f"`{_type}` is not a valid input to parameter `type`"
+                )  # noqa: E501
 
         url: str = "http://www.transitchicago.com/api/1.0/routes.aspx"
 
