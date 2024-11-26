@@ -111,16 +111,46 @@ class BusAPIBuilder:
         )
 
     def buildRoutesAPIURL(self) -> str:
+        """
+        buildRoutesAPIURL _summary_
+
+        _extended_summary_
+
+        :return: _description_
+        :rtype: str
+        """
         url: str = "http://www.ctabustracker.com/bustime/api/v2/getroutes"
 
         return self.constructor(url=url)
 
     def buildRouteDirectionsAPIURL(self, rt: str | int) -> str:
+        """
+        buildRouteDirectionsAPIURL _summary_
+
+        _extended_summary_
+
+        :param rt: _description_
+        :type rt: str | int
+        :return: _description_
+        :rtype: str
+        """
         url: str = "http://www.ctabustracker.com/bustime/api/v2/getdirections"
 
         return self.constructor(url=url, rt=rt)
 
     def buildStopsAPIURL(self, rt: str | int, dir: str) -> str:
+        """
+        buildStopsAPIURL _summary_
+
+        _extended_summary_
+
+        :param rt: _description_
+        :type rt: str | int
+        :param dir: _description_
+        :type dir: str
+        :return: _description_
+        :rtype: str
+        """
         url: str = "http://www.ctabustracker.com/bustime/api/v2/getstops"
 
         return self.constructor(url=url, rt=rt, dir=dir)
@@ -130,6 +160,21 @@ class BusAPIBuilder:
         pid: typing.Optional[typing.List[int]] = None,
         rt: str | int = None,
     ) -> None:
+        """
+        buildPatternsAPIURL _summary_
+
+        _extended_summary_
+
+        :param pid: _description_, defaults to None
+        :type pid: typing.Optional[typing.List[int]], optional
+        :param rt: _description_, defaults to None
+        :type rt: str | int, optional
+        :raises ValueError: _description_
+        :raises TypeError: _description_
+        :raises ValueError: _description_
+        :return: _description_
+        :rtype: _type_
+        """
         if pid and rt:
             raise ValueError("`pid` and `rt` cannot be used together")
 
@@ -150,6 +195,28 @@ class BusAPIBuilder:
         vid: typing.Optional[typing.List[int]] = None,
         top: int = None,
     ) -> None:
+        """
+        buildPredictionsAPIURL _summary_
+
+        _extended_summary_
+
+        :param rt: _description_, defaults to None
+        :type rt: str | int, optional
+        :param stpid: _description_, defaults to None
+        :type stpid: typing.Optional[typing.List[int]], optional
+        :param vid: _description_, defaults to None
+        :type vid: typing.Optional[typing.List[int]], optional
+        :param top: _description_, defaults to None
+        :type top: int, optional
+        :raises ValueError: _description_
+        :raises ValueError: _description_
+        :raises TypeError: _description_
+        :raises ValueError: _description_
+        :raises TypeError: _description_
+        :raises ValueError: _description_
+        :return: _description_
+        :rtype: _type_
+        """
         if rt and stpid:
             raise ValueError("`stpid` and `rt` cannot be used together")
 
