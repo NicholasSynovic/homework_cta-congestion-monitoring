@@ -7,14 +7,24 @@ build:
 	poetry build
 	pip install dist/*.tar.gz
 
+deploy:
+	echo
+
 package:
 	pyinstaller --clean \
 		--onefile \
 		--add-data ./cta/_version:. \
 		--workpath ./pyinstaller \
-		--name cta \
+		--name ingest_CTAAlerts \
 		--hidden-import cta \
-		cta/main.py
+		ingest_CTAAlerts.py
 
+	pyinstaller --clean \
+		--onefile \
+		--add-data ./cta/_version:. \
+		--workpath ./pyinstaller \
+		--name ingest_CTALStops \
+		--hidden-import cta \
+		ingest_CTALStops.py
 test:
 	pytest tests/test_*.py
