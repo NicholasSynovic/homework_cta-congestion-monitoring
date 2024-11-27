@@ -29,5 +29,6 @@ class SystemAPI:
         df: pandas.DataFrame = pandas.DataFrame(data=resp.json())
         df["latitude"] = df["location"].str.get("latitude")
         df["longitude"] = df["location"].str.get("longitude")
+        df.drop(columns=["location"], inplace=True)
 
         return df
