@@ -1,10 +1,10 @@
 GIT_TAG := $(shell git --no-pager tag | tail -n 1)
 
 build:
-	poetry -C cta2json version $(GIT_TAG)
-	poetry -C cta2json version --short > cta2json/_version
-	poetry -C cta2json build
-	pip install cta2json/dist/*.tar.gz
+	poetry version $(GIT_TAG)
+	poetry version --short > cta_api/_version
+	poetry build
+	pip install dist/*.tar.gz
 
 create-dev:
 	pre-commit install

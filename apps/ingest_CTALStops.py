@@ -3,8 +3,9 @@ from pathlib import Path
 from time import time
 
 import click
-from cta.system import SystemAPI
 from pandas import DataFrame
+
+from cta_api.system import SystemAPI
 
 
 @click.command()

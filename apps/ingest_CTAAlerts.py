@@ -3,8 +3,9 @@ from pathlib import Path
 from time import time
 
 import click
-from cta.alert import AlertAPI
 from pandas import DataFrame
+
+from cta_api.alert import AlertAPI
 
 
 @click.command()
