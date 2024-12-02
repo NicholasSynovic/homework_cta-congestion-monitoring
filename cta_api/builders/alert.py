@@ -1,9 +1,9 @@
 import functools
 import typing
 
-import cta.builders
+import cta_api.builders
 
-SAFE_JOIN: functools.partial = functools.partial(cta.builders._safeJoin)
+SAFE_JOIN: functools.partial = functools.partial(cta_api.builders._safeJoin)
 VALID_TYPE: typing.List[str] = ["bus", "rail", "station", "systemwide"]
 
 
@@ -29,7 +29,7 @@ class AlertAPIBuilder:
         self.outputType = outputType
 
         self.constructor: functools.partial = functools.partial(
-            cta.builders._constructAPI,
+            cta_api.builders._constructAPI,
             outputType=self.outputType,
         )
 
@@ -61,7 +61,7 @@ class AlertAPIBuilder:
         :raises ValueError: If `type` contains values that are not `bus`, `rail`, `station`, `systemwide`
         :return: The Route Status API endpoint
         :rtype: str
-        """
+        """  # noqa: E501
         if (type) and not isinstance(type, list):
             raise TypeError("`type` must be a list")
 
@@ -120,7 +120,7 @@ class AlertAPIBuilder:
         :raises TypeError: If `routeid` or `stationid` is not a list or if `bystartdate` or `recentdays` is not an int
         :return: The Detailed Status API endpoint
         :rtype: str
-        """
+        """  # noqa: E501
         if (routeid) and not isinstance(routeid, list):
             raise TypeError("`routeid` must be a list")
 

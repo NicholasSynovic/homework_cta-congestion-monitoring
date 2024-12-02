@@ -1,7 +1,7 @@
 import functools
 import typing
 
-import cta.builders
+import cta_api.builders
 
 
 class TrainAPIBuilder:
@@ -15,7 +15,7 @@ class TrainAPIBuilder:
         self.key = key
 
         self.constructor: functools.partial = functools.partial(
-            cta.builders._constructAPI,
+            cta_api.builders._constructAPI,
             key=self.key,
         )
 

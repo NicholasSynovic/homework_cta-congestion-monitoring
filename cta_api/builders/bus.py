@@ -1,7 +1,7 @@
 import functools
 import typing
 
-import cta.builders
+import cta_api.builders
 
 
 class BusAPIBuilder:
@@ -38,7 +38,7 @@ class BusAPIBuilder:
         self.format = format
 
         self.constructor: functools.partial = functools.partial(
-            cta.builders._constructAPI,
+            cta_api.builders._constructAPI,
             key=self.key,
             locale=self.locale,
             format=self.format,

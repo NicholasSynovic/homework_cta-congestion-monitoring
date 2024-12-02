@@ -54,7 +54,7 @@ def main(outputFP: Path, logDirectory: Path) -> None:
     logging.info("Sending get query to Route Status API")
 
     try:
-        df: DataFrame = api.route_status(type=["rail", "station"])
+        df: DataFrame = api.route_status(type=["rail"])
     except ValueError as ve:
         logging.error("Status code not 200")
         logging.exception(msg=ve)

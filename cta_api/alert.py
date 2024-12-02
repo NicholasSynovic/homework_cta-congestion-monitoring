@@ -1,8 +1,9 @@
-import cta
-import cta.directors
-import cta.directors.alert
 import pandas
 import requests
+
+import cta_api
+import cta_api.directors
+import cta_api.directors.alert
 
 
 class AlertAPI:
@@ -11,15 +12,15 @@ class AlertAPI:
     """
 
     def __init__(self) -> None:
-        self.director: cta.directors.alert.AlertAPIDirector = (
-            cta.directors.alert.AlertAPIDirector()
+        self.director: cta_api.directors.alert.AlertAPIDirector = (
+            cta_api.directors.alert.AlertAPIDirector()
         )
 
     def route_status(self, **kwargs) -> pandas.DataFrame:
         """
         Get data from the Route Status API endpoint.
 
-        Inherits parameters from `cta.directors.alert.getRouteStatus()`
+        Inherits parameters from `cta_api.directors.alert.getRouteStatus()`
 
         :raises ValueError: Raised if the response status code != 200
         :return: A pandas.DataFrame of the response
@@ -42,7 +43,7 @@ class AlertAPI:
         """
         Get data from the Detailed Status API endpoint.
 
-        Inherits parameters from `cta.directors.alert.getDetailedAlerts()`
+        Inherits parameters from `cta_api.directors.alert.getDetailedAlerts()`
 
         :raises ValueError: Raised if the response status code != 200
         :return: A pandas.DataFrame of the response

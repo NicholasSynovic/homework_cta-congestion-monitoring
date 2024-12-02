@@ -1,7 +1,8 @@
 import typing
 
 import requests
-from cta.builders.alert import AlertAPIBuilder
+
+from cta_api.builders.alert import AlertAPIBuilder
 
 
 class AlertAPIDirector:
@@ -34,7 +35,7 @@ class AlertAPIDirector:
         """
         Construct and get the response from the Route Status API.
 
-        Inherits the parameters from cta.builders.alert.AlertAPIBuilder.buildRouteStatusAPIURL
+        Inherits the parameters from cta_api.builders.alert.AlertAPIBuilder.buildRouteStatusAPIURL
 
         :param timeout: Timeout in seconds for when to close the HTTP connection, defaults to 60
         :type timeout: int, optional
@@ -65,7 +66,7 @@ class AlertAPIDirector:
         """
         Construct and get the response from the Detailed Alert Status API.
 
-        Inherits the parameters from cta.builders.alert.AlertAPIBuilder.buildDetailedAlertsAPIURL
+        Inherits the parameters from cta_api.builders.alert.AlertAPIBuilder.buildDetailedAlertsAPIURL
 
         :param timeout: Timeout in seconds for when to close the HTTP connection, defaults to 60
         :type timeout: int, optional
