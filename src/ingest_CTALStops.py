@@ -3,8 +3,9 @@ from pathlib import Path
 from time import time
 
 import click
-from cta.alert import AlertAPI
 from pandas import DataFrame
+
+from cta.system import SystemAPI
 
 
 @click.command()
@@ -37,7 +38,7 @@ from pandas import DataFrame
     ),
 )
 def main(outputFP: Path, logDirectory: Path) -> None:
-    logFP: Path = Path(logDirectory, f"cta-alerts.{time()}.log")
+    logFP: Path = Path(logDirectory, f"cta-l-stops.{time()}.log")
 
     logging.basicConfig(
         filename=logFP,
@@ -49,12 +50,12 @@ def main(outputFP: Path, logDirectory: Path) -> None:
 
     logging.info(msg="Started application")
 
-    api: AlertAPI = AlertAPI()
+    api: SystemAPI = SystemAPI()
 
-    logging.info("Sending get query to Route Status API")
+    logging.info("Sending get query to System L Stop API")
 
     try:
-        df: DataFrame = api.route_status(type=["rail", "station"])
+        df: DataFrame = api.getLStopList()
     except ValueError as ve:
         logging.error("Status code not 200")
         logging.exception(msg=ve)

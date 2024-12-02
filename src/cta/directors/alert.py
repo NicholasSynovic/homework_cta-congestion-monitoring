@@ -1,6 +1,7 @@
 import typing
 
 import requests
+
 from cta.builders.alert import AlertAPIBuilder
 
 
