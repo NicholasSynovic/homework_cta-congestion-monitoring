@@ -1,4 +1,17 @@
-FROM python:3.10 AS builder
+FROM python:3.10
 
-COPY ./dist/ingest_CTAAlerts /root/app/ingest_CTAAlerts
-COPY ./dist/ingest_CTALStops /root/app/ingest_CTALStops
+COPY . /root/app/
+
+WORKDIR /root/app
+
+RUN pip install poetry pyinstaller
+RUN make build GIT_TAG=0.0.0
+RUN make test
+RUN make package
+
+RUN cp dist/ingest_CTAAlerts .
+
+RUN chmod +x run.bash
+RUN chmod +x ingest_CTAAlerts
+
+ENTRYPOINT [ "/bin/bash", "./run.bash" ]

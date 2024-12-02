@@ -8,7 +8,13 @@ build:
 	pip install dist/*.tar.gz
 
 deploy:
-	echo
+	docker volume create ccm_data
+	docker build -t ccm_image_ingest .
+	docker run -d \
+	--name ccm_container_ingest \
+	--restart always \
+	-v ccm_data:/root/app \
+	ccm_image_ingest
 
 package:
 	pyinstaller --clean \
