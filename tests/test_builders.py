@@ -1,10 +1,9 @@
 import functools
 
-import pytest
-
 import cta
 import cta.builders
 import cta.builders.alert
+import pytest
 
 
 def test__constructAPI() -> None:

@@ -1,9 +1,8 @@
-import pandas
-import requests
-
 import cta
 import cta.directors
 import cta.directors.alert
+import pandas
+import requests
 
 
 class AlertAPI:
