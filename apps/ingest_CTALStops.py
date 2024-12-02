@@ -1,6 +1,5 @@
 import logging
 from pathlib import Path
-from time import time
 
 import click
 from pandas import DataFrame
@@ -38,11 +37,11 @@ from cta_api.system import SystemAPI
     ),
 )
 def main(outputFP: Path, logDirectory: Path) -> None:
-    logFP: Path = Path(logDirectory, f"cta-l-stops.{time()}.log")
+    logFP: Path = Path(logDirectory, "ingest_CTALStops.log")
 
     logging.basicConfig(
         filename=logFP,
-        filemode="w",
+        filemode="a",
         format="%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s",
         datefmt="%H:%M:%S",
         level=logging.DEBUG,
