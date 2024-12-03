@@ -1,3 +1,5 @@
+from time import time
+
 import pandas
 import requests
 
@@ -35,6 +37,7 @@ class AlertAPI:
 
         df: pandas.DataFrame = pandas.DataFrame(data=ctaRoutes)
         df["RouteURL"] = df["RouteURL"].str.get("#cdata-section")
+        df["Time"] = int(time())
         df.reset_index(drop=True, inplace=True)
 
         return df
