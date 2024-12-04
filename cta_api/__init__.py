@@ -3,8 +3,6 @@ import ssl
 import requests
 import requests.adapters
 
-__all__ = ["RequestHandler"]
-
 
 class SSLAdapter(requests.adapters.HTTPAdapter):
     """
