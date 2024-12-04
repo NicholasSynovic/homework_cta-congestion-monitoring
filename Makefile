@@ -16,12 +16,3 @@ create-dev:
 		poetry install; \
 		deactivate; \
 	)
-
-package:
-	pyinstaller --clean \
-		--onefile \
-		--add-data ./src/_version:. \
-		--workpath ./pyinstaller \
-		--name src \
-		--hidden-import src \
-		src/main.py
