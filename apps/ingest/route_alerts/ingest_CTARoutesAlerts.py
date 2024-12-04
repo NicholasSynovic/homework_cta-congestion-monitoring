@@ -73,7 +73,6 @@ def app(sleepSeconds: int, api: AlertAPI, outputDirectory: Path) -> None:
     "-s",
     "--sleep",
     "sleepSeconds",
-    required=True,
     help="Number of seconds to sleep before retrieving new queries",
     type=int,
     required=False,
