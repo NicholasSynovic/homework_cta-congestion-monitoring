@@ -3,6 +3,7 @@ from typing import List, Literal
 from urllib.parse import quote_plus
 
 from pymongo.collection import Collection
+from pymongo.cursor import Cursor
 from pymongo.database import Database
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -50,3 +51,15 @@ class Driver:
 
     def writeDocuments(self, documents: List[dict]) -> None:
         self.collection.insert_many(documents=documents)
+
+    def getLatest_LRouteAlerts(self) -> Cursor:
+        self.getCollection(name="l_route_alerts")
+        return self.collection.find({}).limit(limit=9)
+
+    def getLatest_LStationAlerts(self) -> Cursor:
+        self.getCollection(name="l_station_alerts")
+        return self.collection.find({}).limit(limit=200)
+
+    def get_LStops(self) -> Cursor:
+        self.getCollection(name="l_stops")
+        return self.collection.find({})
