@@ -6,7 +6,7 @@ authors = ["Nicholas M. Synovic <nicholas.synovic@gmail.com>"]
 readme = "README.md"
 packages = [
     { include = "cta_api", from = ".", to = "cta_api" },
-    { include = "test_pkg", from = ".", to = "test_pkg" },
+    { include = "mdb_handler", from = ".", to = "mdb_handler" },
 ]
 
 [tool.poetry.dependencies]
