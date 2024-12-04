@@ -4,6 +4,10 @@ version = "0.0.0"
 description = ""
 authors = ["Nicholas M. Synovic <nicholas.synovic@gmail.com>"]
 readme = "README.md"
+packages = [
+    { include = "cta_api", from = ".", to = "cta_api" },
+    { include = "test_pkg", from = ".", to = "test_pkg" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -11,6 +15,7 @@ requests = "^2.32.3"
 pytest = "^8.3.3"
 pandas = "^2.2.3"
 click = "^8.1.7"
+pymongo = {version = "^4.10.1", extras = ["srv"]}
 
 [build-system]
 requires = ["poetry-core"]
