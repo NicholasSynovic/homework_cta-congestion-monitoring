@@ -12,6 +12,7 @@ pytest = "^8.3.3"
 pandas = "^2.2.3"
 click = "^8.1.7"
 pymongo = {version = "^4.10.1", extras = ["srv"]}
+fastapi = {version = "^0.115.6", extras = ["standard"]}
 
 [build-system]
 requires = ["poetry-core"]
