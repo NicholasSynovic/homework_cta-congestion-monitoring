@@ -1,11 +1,10 @@
 from time import time
 
-import pandas
-import requests
-
 import cta_api
 import cta_api.directors
 import cta_api.directors.alert
+import pandas
+import requests
 
 
 class AlertAPI:
