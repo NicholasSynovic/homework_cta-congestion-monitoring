@@ -8,7 +8,7 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
 
-class MDBDriver:
+class Driver:
     def __init__(self, username: str, password: str, uri: str) -> None:
         self.client: MongoClient | None = None
         self.database: Database | None = None
