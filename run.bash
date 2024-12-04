@@ -25,3 +25,13 @@ if [ "$mdb_uri" == "" ]; then
 	echo "ERROR: Please provide a MongoDB cluster uri"
 	exit 1
 fi
+
+env/bin/python apps/l_route_alerts/app.py \
+    --cluster-uri $mdb_uri \
+    --password $mdb_password \
+    --username $mdb_username &
+
+env/bin/python apps/l_station_alerts/app.py \
+    --cluster-uri $mdb_uri \
+    --password $mdb_password \
+    --username $mdb_username &
