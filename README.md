@@ -42,6 +42,7 @@ application:
 ## How To Build From Source
 
 1. `make create-dev`
+1. `source env/bin/activate`
 1. `make build`
 
 ## How To Run The Application
