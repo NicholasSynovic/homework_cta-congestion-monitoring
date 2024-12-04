@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "cta_api"
+name = "cta"
 version = "0.0.0"
 description = ""
 authors = ["Nicholas M. Synovic <nicholas.synovic@gmail.com>"]

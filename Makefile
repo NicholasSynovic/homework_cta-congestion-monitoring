@@ -2,7 +2,7 @@ GIT_TAG := $(shell git --no-pager tag | tail -n 1)
 
 build:
 	poetry version $(GIT_TAG)
-	poetry version --short > cta_api/_version
+	poetry version --short > cta/_version
 	poetry build
 	pip install dist/*.tar.gz
 
