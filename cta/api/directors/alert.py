@@ -1,7 +1,8 @@
 import typing
 
 import requests
-from cta_api.builders.alert import AlertAPIBuilder
+
+from cta.api.builders.alert import AlertAPIBuilder
 
 
 class AlertAPIDirector:

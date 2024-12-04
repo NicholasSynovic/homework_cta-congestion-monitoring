@@ -1,9 +1,9 @@
 import functools
 import typing
 
-import cta_api.builders
+import cta.api.builders
 
-SAFE_JOIN: functools.partial = functools.partial(cta_api.builders._safeJoin)
+SAFE_JOIN: functools.partial = functools.partial(cta.api.builders._safeJoin)
 VALID_TYPE: typing.List[str] = ["bus", "rail", "station", "systemwide"]
 
 
@@ -29,7 +29,7 @@ class AlertAPIBuilder:
         self.outputType = outputType
 
         self.constructor: functools.partial = functools.partial(
-            cta_api.builders._constructAPI,
+            cta.api.builders._constructAPI,
             outputType=self.outputType,
         )
 

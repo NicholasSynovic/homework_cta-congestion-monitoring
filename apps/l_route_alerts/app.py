@@ -1,12 +1,13 @@
 import logging
 import time
 from pathlib import Path
-from pprint import pprint as print
 from typing import List
 
+import click
 from pandas import DataFrame
 
-from cta_api.alert import AlertAPI
+from cta.api.alert import AlertAPI
+from cta.mongodb import Driver
 
 
 def ingest(api: AlertAPI) -> DataFrame | None:
@@ -29,34 +30,61 @@ def sleep(seconds: int) -> None:
 def app(
     sleepSeconds: int,
     alertAPI: AlertAPI,
-    # mdb: mdb_handler.MDBDriver,
+    mdb: Driver,
 ) -> None:
     while True:
         data: DataFrame | None = ingest(api=alertAPI)
 
-        if data is None:
-            sleep(seconds=sleepSeconds)
-            continue
+        if data is not None:
+            json: List[dict] = data.to_dict(orient="records")
+            mdb.writeDocuments(documents=json)
 
-        jsonData: List[dict] = data.to_json()(orient="index")
-        print(jsonData)
-        quit()
+        sleep(seconds=sleepSeconds)
 
 
+@click.command()
+@click.option(
+    "-c",
+    "--cluster-uri",
+    "mdb_uri",
+    type=str,
+    required=True,
+    help="MongoDB cluster uri",
+)
+@click.option(
+    "-p",
+    "--password",
+    "mdb_password",
+    type=str,
+    required=True,
+    help="MongoDB account password",
+)
+@click.option(
+    "-u",
+    "--username",
+    "mdb_username",
+    type=str,
+    required=True,
+    help="MongoDB username",
+)
 def main(
     mdb_username: str,
     mdb_password: str,
     mdb_uri: str,
-    sleepSeconds: int,
+    sleepSeconds: int = 300,
 ) -> None:
     alerts: AlertAPI = AlertAPI()
-    # mdb: mdb_handler.MDBDriver = mdb_handler.MDBDriver(
-    #     username=mdb_username,
-    #     password=mdb_password,
-    #     uri=mdb_uri,
-    # )
+    mdb: Driver = Driver(
+        username=mdb_username,
+        password=mdb_password,
+        uri=mdb_uri,
+    )
 
-    app(sleepSeconds=sleepSeconds, alertAPI=alerts)
+    mdb.connect()
+    mdb.getDatabase()
+    mdb.getCollection(name="l_route_alerts")
+
+    app(sleepSeconds=sleepSeconds, alertAPI=alerts, mdb=mdb)
 
 
 if __name__ == "__main__":
@@ -69,3 +97,5 @@ if __name__ == "__main__":
         datefmt="%H:%M:%S",
         level=logging.DEBUG,
     )
+
+    main()
