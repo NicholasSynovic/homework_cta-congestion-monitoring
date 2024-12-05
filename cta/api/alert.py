@@ -1,65 +1,64 @@
 from time import time
 
-import pandas
-import requests
+from pandas import DataFrame
+from requests import Response
 
-import cta.api
-import cta.api.directors
-import cta.api.directors.alert
+from cta.api.directors.alert import AlertAPIDirector
 
 
 class AlertAPI:
     """
-    Top level interface to working with the CTA Customer Alerts API
+    Top level interface to working with the CTA Train Tracker API
     """
 
     def __init__(self) -> None:
-        self.director: cta.api.directors.alert.AlertAPIDirector = (
-            cta.api.directors.alert.AlertAPIDirector()
-        )
+        """
+        Instantiate AlertAPI interface
+        """
+        self.director: AlertAPIDirector = AlertAPIDirector()
 
-    def route_status(self, **kwargs) -> pandas.DataFrame:
+    def route_status(self, **kwargs) -> DataFrame:
         """
         Get data from the Route Status API endpoint.
 
-        Inherits parameters from `cta.api.directors.alert.getRouteStatus()`
+        Inherits parameters from `cta.api.directors.alert.AlertAPIDirector.getRouteStatus()`
 
         :raises ValueError: Raised if the response status code != 200
-        :return: A pandas.DataFrame of the response
-        :rtype: pandas.DataFrame
-        """
-        resp: requests.Response = self.director.getRouteStatus(**kwargs)
+        :return: A DataFrame of the response
+        :rtype: DataFrame
+        """  # noqa: E501
+        resp: Response = self.director.getRouteStatus(**kwargs)
 
         if resp.status_code != 200:
             raise ValueError("Route Status API endpoint status code != 200")
 
         ctaRoutes: dict = resp.json()["CTARoutes"]["RouteInfo"]
 
-        df: pandas.DataFrame = pandas.DataFrame(data=ctaRoutes)
+        df: DataFrame = DataFrame(data=ctaRoutes)
         df["RouteURL"] = df["RouteURL"].str.get("#cdata-section")
         df["Time"] = int(time())
         df.reset_index(drop=True, inplace=True)
 
         return df
 
-    def detailed_status(self, **kwargs) -> pandas.DataFrame:
+    def detailed_status(self, **kwargs) -> DataFrame:
         """
         Get data from the Detailed Status API endpoint.
 
-        Inherits parameters from `cta.api.directors.alert.getDetailedAlerts()`
+        Inherits parameters from `cta.api.directors.alert.AlertAPIDirector.getDetailedAlerts()`
 
         :raises ValueError: Raised if the response status code != 200
-        :return: A pandas.DataFrame of the response
-        :rtype: pandas.DataFrame
-        """
-        resp: requests.Response = self.director.getDetailedAlerts(**kwargs)
+        :return: A DataFrame of the response
+        :rtype: DataFrame
+        """  # noqa: E501
+        resp: Response = self.director.getDetailedAlerts(**kwargs)
 
         if resp.status_code != 200:
             raise ValueError("Detailed Status API endpoint status code != 200")
 
         ctaRoutes: dict = resp.json()["CTARoutes"]["RouteInfo"]
 
-        df: pandas.DataFrame = pandas.DataFrame(data=ctaRoutes)
+        df: DataFrame = DataFrame(data=ctaRoutes)
         df.reset_index(drop=True, inplace=True)
 
         return df
