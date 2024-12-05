@@ -1,48 +1,62 @@
-import functools
-import typing
+from functools import partial
+from typing import Literal, Optional
 
 import cta.api.builders
 
 
 class TrainAPIBuilder:
     """
-     _summary_
+    Chicago Transit Authority (CTA) Customer Train Tracker API endpoint builder
 
-    _extended_summary_
-    """
+    https://www.transitchicago.com/developers/traintracker/
+    """  # noqa: E501
 
-    def __init__(self, key: str) -> None:
+    def __init__(
+        self,
+        key: str,
+        outputType: Literal["xml", "json"] = "json",
+    ) -> None:
+        """
+        :param key: CTA developer API key
+        :type key: str
+        :param outputType: Specifies the format of the response content, defaults to "json"
+        :type outputType: Literal[`xml`, `json`], optional
+        :raises ValueError: If outputType is not `xml` or `json`, a ValueError is raised
+        """  # noqa: E501
+        if (outputType != "xml") and (outputType != "json"):
+            raise ValueError("outputType must be either `xml` or `json`")
+
         self.key = key
+        self.outputType = outputType
 
-        self.constructor: functools.partial = functools.partial(
+        self.constructor: partial = partial(
             cta.api.builders._constructAPI,
             key=self.key,
+            outputType=self.outputType,
         )
 
     def buildArrivalsAPIURL(
         self,
-        mapid: typing.Optional[int] = None,
-        stpid: typing.Optional[int] = None,
-        max: typing.Optional[int] = None,
-        rt: typing.Optional[str] = None,
+        mapid: Optional[int] = None,
+        stpid: Optional[int] = None,
+        max: Optional[int] = None,
+        rt: Optional[str] = None,
     ) -> str:
         """
-        buildArrivalsAPIURL _summary_
+        Build the Arrivals API endpoint
 
-        _extended_summary_
-
-        :param mapid: _description_, defaults to None
-        :type mapid: typing.Optional[int], optional
-        :param stpid: _description_, defaults to None
-        :type stpid: typing.Optional[int], optional
-        :param max: _description_, defaults to None
-        :type max: typing.Optional[int], optional
-        :param rt: _description_, defaults to None
-        :type rt: typing.Optional[str], optional
-        :raises ValueError: _description_
-        :return: _description_
+        :param mapid: Five-digit code to tell the server which station you’d like to receive predictions for, defaults to None
+        :type mapid: Optional[int], optional
+        :param stpid: Five-digit code to tell the server which specific stop (in this context, specific platform or platform side within a larger station) you’d like to receive predictions for, defaults to None
+        :type stpid: Optional[int], optional
+        :param max: Maximum number you’d like to receive (if not specified, all available results for the requested stop or station will be returned), defaults to None
+        :type max: Optional[int], optional
+        :param rt: Specify a single route for which you’d like results, defaults to None
+        :type rt: Optional[str], optional
+        :raises ValueError: If `mapid` and `stpid` are both None
+        :return: The Train Arrivals API endpoint
         :rtype: str
-        """
+        """  # noqa: E501
         if (mapid is None) and (stpid is None):
             raise ValueError("Either mapid or stpid must be set")
 
@@ -58,15 +72,13 @@ class TrainAPIBuilder:
 
     def buildFollowThisTrainAPIURL(self, runnumber: int) -> str:
         """
-        buildFollowThisTrainAPIURL _summary_
+        Build the Follow THis Train API endpoint
 
-        _extended_summary_
-
-        :param runnumber: _description_
+        :param runnumber: Specify a single run number for a train for which you’d like a series of upcoming arrival estimations.
         :type runnumber: int
-        :return: _description_
+        :return: The Follow This Train API endpoint
         :rtype: str
-        """
+        """  # noqa: E501
         url: str = "http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?outputType=JSON"  # noqa: E501
 
         return self.constructor(
@@ -74,17 +86,15 @@ class TrainAPIBuilder:
             runnumber=runnumber,
         )
 
-    def buildLocationsAPIURL(self, key: str, rt: str) -> str:
+    def buildLocationsAPIURL(self, rt: str) -> str:
         """
-        buildLocationsAPIURL _summary_
+        Build the Locations API URL endpoint
 
-        _extended_summary_
-
-        :param rt: _description_
+        :param rt: Specify one or more routes for which you’d like train location information
         :type rt: int
-        :return: _description_
+        :return: The Locations API endpoint
         :rtype: str
-        """
+        """  # noqa: E501
         url: str = "http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?outputType=JSON"  # noqa: E501
 
         return self.constructor(url=url, rt=rt)

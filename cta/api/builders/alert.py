@@ -1,10 +1,10 @@
-import functools
-import typing
+from functools import partial
+from typing import List, Literal, Optional
 
 import cta.api.builders
 
-SAFE_JOIN: functools.partial = functools.partial(cta.api.builders._safeJoin)
-VALID_TYPE: typing.List[str] = ["bus", "rail", "station", "systemwide"]
+SAFE_JOIN: partial = partial(cta.api.builders._safeJoin)
+VALID_TYPE: List[str] = ["bus", "rail", "station", "systemwide"]
 
 
 class AlertAPIBuilder:
@@ -16,11 +16,11 @@ class AlertAPIBuilder:
 
     def __init__(
         self,
-        outputType: typing.Literal["xml", "json"] = "json",
+        outputType: Literal["xml", "json"] = "json",
     ) -> None:
         """
         :param outputType: Specifies the format of the response content, defaults to "json"
-        :type outputType: typing.Literal[`xml`, `json`], optional
+        :type outputType: Literal[`xml`, `json`], optional
         :raises ValueError: If outputType is not `xml` or `json`, a ValueError is raised
         """  # noqa: E501
         if (outputType != "xml") and (outputType != "json"):
@@ -28,16 +28,16 @@ class AlertAPIBuilder:
 
         self.outputType = outputType
 
-        self.constructor: functools.partial = functools.partial(
+        self.constructor: partial = partial(
             cta.api.builders._constructAPI,
             outputType=self.outputType,
         )
 
     def buildRouteStatusAPIURL(
         self,
-        type: typing.Optional[
-            typing.List[
-                typing.Literal[
+        type: Optional[
+            List[
+                Literal[
                     "bus",
                     "rail",
                     "station",
@@ -45,18 +45,18 @@ class AlertAPIBuilder:
                 ]
             ]
         ] = None,
-        routeid: typing.Optional[typing.List[str]] = None,
-        stationid: typing.Optional[typing.List[int]] = None,
+        routeid: Optional[List[str]] = None,
+        stationid: Optional[List[int]] = None,
     ) -> str:
         """
         Build the Route Status API endpoint
 
         :param type: Service types to query, defaults to None
-        :type type: typing.Optional[ typing.List[ typing.Literal[ `bus`, `rail`, `station`, `systemwide`, ] ] ], optional
+        :type type: Optional[ List[ Literal[ `bus`, `rail`, `station`, `systemwide`, ] ] ], optional
         :param routeid: Route ids, defaults to None
-        :type routeid: typing.Optional[typing.List[str]], optional
+        :type routeid: Optional[List[str]], optional
         :param stationid: Station ids, defaults to None
-        :type stationid: typing.Optional[typing.List[int]], optional
+        :type stationid: Optional[List[int]], optional
         :raises TypeError: If `type`, `routeid`, or `stationid` is not a list
         :raises ValueError: If `type` contains values that are not `bus`, `rail`, `station`, `systemwide`
         :return: The Route Status API endpoint
@@ -97,8 +97,8 @@ class AlertAPIBuilder:
         planned: bool = None,
         bystartdate: int = None,
         recentdays: int = None,
-        routeid: typing.Optional[typing.List[str]] = None,
-        stationid: typing.Optional[typing.List[int]] = None,
+        routeid: Optional[List[str]] = None,
+        stationid: Optional[List[int]] = None,
     ) -> str:
         """
         Build the Detailed Status API endpoint
@@ -114,9 +114,9 @@ class AlertAPIBuilder:
         :param recentdays: Yields events that have started within *X* number of days before today, defaults to None
         :type recentdays: int, optional
         :param routeid: Route ids, defaults to None
-        :type routeid: typing.Optional[typing.List[str]], optional
+        :type routeid: Optional[List[str]], optional
         :param stationid: Station ids, defaults to None
-        :type stationid: typing.Optional[typing.List[int]], optional
+        :type stationid: Optional[List[int]], optional
         :raises TypeError: If `routeid` or `stationid` is not a list or if `bystartdate` or `recentdays` is not an int
         :return: The Detailed Status API endpoint
         :rtype: str
