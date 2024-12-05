@@ -8,7 +8,7 @@ from cta.api.directors.alert import AlertAPIDirector
 
 class AlertAPI:
     """
-    Top level interface to working with the CTA Train Tracker API
+    Top level interface to working with the CTA Customer Alerts API
     """
 
     def __init__(self) -> None:
