@@ -5,6 +5,7 @@ source optparse.bash
 
 # Define options
 optparse.define short=c long=cluster-uri desc="MongoDB cluster URI" variable=mdb_uri
+optparse.define short=k long=key desc="CTA developer key" variable=cta_key
 optparse.define short=p long=password desc="MongoDB password" variable=mdb_password
 optparse.define short=u long=username desc="MongoDB username" variable=mdb_username
 
@@ -35,3 +36,9 @@ env/bin/python apps/l_station_alerts/app.py \
     --cluster-uri $mdb_uri \
     --password $mdb_password \
     --username $mdb_username &
+
+env/bin/python apps/l_train_locations/app.py \
+    --cluster-uri $mdb_uri \
+    --password $mdb_password \
+    --username $mdb_username \
+    --key $cta_key &

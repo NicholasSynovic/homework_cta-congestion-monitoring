@@ -60,7 +60,7 @@ class TrainAPIBuilder:
         if (mapid is None) and (stpid is None):
             raise ValueError("Either mapid or stpid must be set")
 
-        url: str = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx?outputType=JSON"  # noqa: E501
+        url: str = "http://lapi.transitchicago.com/api/1.0/ttarrivals.aspx"
 
         return self.constructor(
             url=url,
@@ -79,12 +79,8 @@ class TrainAPIBuilder:
         :return: The Follow This Train API endpoint
         :rtype: str
         """  # noqa: E501
-        url: str = "http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?outputType=JSON"  # noqa: E501
-
-        return self.constructor(
-            url=url,
-            runnumber=runnumber,
-        )
+        url: str = "http://lapi.transitchicago.com/api/1.0/ttfollow.aspx"
+        return self.constructor(url=url, runnumber=runnumber)
 
     def buildLocationsAPIURL(self, rt: str) -> str:
         """
@@ -95,6 +91,5 @@ class TrainAPIBuilder:
         :return: The Locations API endpoint
         :rtype: str
         """  # noqa: E501
-        url: str = "http://lapi.transitchicago.com/api/1.0/ttfollow.aspx?outputType=JSON"  # noqa: E501
-
+        url: str = "http://lapi.transitchicago.com/api/1.0/ttpositions.aspx"
         return self.constructor(url=url, rt=rt)
