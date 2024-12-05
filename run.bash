@@ -42,3 +42,9 @@ env/bin/python apps/l_train_locations/app.py \
     --password $mdb_password \
     --username $mdb_username \
     --key $cta_key &
+
+# Run the following with these shell variables in a different shell:
+# export mdb_uri
+# export mdb_password
+# export mdb_username
+# fastapi dev --port 8001 apps/middleware/app.py
