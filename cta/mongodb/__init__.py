@@ -63,3 +63,11 @@ class Driver:
     def get_LStops(self) -> Cursor:
         self.getCollection(name="l_stops")
         return self.collection.find({})
+
+    def get_TrainLocations(self, stationID: int) -> Cursor:
+        self.getCollection(name="l_train_locations")
+        return (
+            self.collection.find({"nextStaId": str(stationID)})
+            .sort(key_or_list="Time", direction=-1)
+            .limit(10)
+        )

@@ -4,6 +4,7 @@ from time import time
 from typing import List
 
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from pymongo.cursor import Cursor
 
 from cta.mongodb import Driver
@@ -50,44 +51,25 @@ mdb.getDatabase()
 app: FastAPI = FastAPI()
 
 
-@app.get(path="/")
-def helloWorld() -> dict[str, str]:
-    return {"msg": "Hello World"}
-
-
-@app.get(path="/getRouteAlerts")
-def getRouteAlerts() -> List[dict]:
-    if cache.checkTime():
-        cache.l_route_alerts = []
-
-        cursor: Cursor = mdb.getLatest_LRouteAlerts()
-
-        doc: dict
-        for doc in cursor:
-            doc["_id"] = str(doc["_id"])
-            cache.l_route_alerts.append(doc)
-
-    return cache.l_route_alerts
-
-
-@app.get(path="/getStationAlerts")
-def getStationAlerts() -> List[dict]:
-    if cache.checkTime():
-        cache.l_station_alerts = []
-
-        cursor: Cursor = mdb.getLatest_LStationAlerts()
-
-        doc: dict
-        for doc in cursor:
-            doc["_id"] = str(doc["_id"])
-            cache.l_station_alerts.append(doc)
-
-    return cache.l_station_alerts
+@app.get(path="/getRoutes")
+def getRoutes() -> dict[str, str]:
+    return {
+        "red": "Red",
+        "blue": "Blue",
+        "g": "Green",
+        "brn": "Brown",
+        "p": "Purple",
+        # "pexp": "Purple Express",
+        "y": "Yellow",
+        "pnk": "Pink",
+        "o": "Orange",
+    }
 
 
 @app.get(path="/getStations")
-def getStations() -> List[dict]:
+def getStations(route: str) -> List[dict]:
     uniqueMapIDs: dict[str, bool] = defaultdict(bool)
+    stations: List[dict] = []
 
     if cache.checkTime():
         cache.l_station_alerts = []
@@ -104,40 +86,76 @@ def getStations() -> List[dict]:
             doc["_id"] = str(doc["_id"])
             cache.l_stops.append(doc)
 
-    return cache.l_stops
-
-
-@app.get(path="/getRoutes")
-def getRoutes() -> dict[str, str]:
-    return {
-        "red": "Red",
-        "blue": "Blue",
-        "g": "Green",
-        "brn": "Brown",
-        "p": "Purple",
-        "pexp": "Purple Express",
-        "y": "Yellow",
-        "pnk": "Pink",
-        "o": "Orange",
-    }
-
-
-@app.get(path="/getSpecificStation")
-def getSpecificStation(stationID: str) -> List[dict]:
-    uniqueStations: dict[str, bool] = defaultdict(bool)
-    stations: List[dict] = []
-
-    getStations()
-
     station: dict
     for station in cache.l_stops:
-        name: str = station["station_name"]
-        if uniqueStations[name]:
-            continue
-        else:
-            uniqueStations[name] = True
-
-        if station[stationID]:
+        if station[route] is True:
             stations.append(station)
 
     return stations
+
+
+@app.get(path="/getTrains")
+def getTrainLocation(stationID: str, route: str) -> List[dict]:
+    stations: List[dict] = []
+
+    trains: Cursor = mdb.get_TrainLocations(stationID=stationID)
+
+    doc: dict
+    for doc in trains:
+        doc["_id"] = str(doc["_id"])
+        stations.append(doc)
+
+    return stations
+
+
+app.mount("/", StaticFiles(directory="web", html=True), name="web")
+
+
+# @app.get(path="/getRouteAlerts")
+# def getRouteAlerts() -> List[dict]:
+#     if cache.checkTime():
+#         cache.l_route_alerts = []
+
+#         cursor: Cursor = mdb.getLatest_LRouteAlerts()
+
+#         doc: dict
+#         for doc in cursor:
+#             doc["_id"] = str(doc["_id"])
+#             cache.l_route_alerts.append(doc)
+
+#     return cache.l_route_alerts
+
+
+# @app.get(path="/getStationAlerts")
+# def getStationAlerts() -> List[dict]:
+#     if cache.checkTime():
+#         cache.l_station_alerts = []
+
+#         cursor: Cursor = mdb.getLatest_LStationAlerts()
+
+#         doc: dict
+#         for doc in cursor:
+#             doc["_id"] = str(doc["_id"])
+#             cache.l_station_alerts.append(doc)
+
+#     return cache.l_station_alerts
+
+# @app.get(path="/getSpecificStation")
+# def getSpecificStation(stationID: str) -> List[dict]:
+#     uniqueStations: dict[str, bool] = defaultdict(bool)
+#     stations: List[dict] = []
+
+#     getStations()
+
+#     station: dict
+#     for station in cache.l_stops:
+#         name: str = station["station_name"]
+#         if uniqueStations[name]:
+#             continue
+#         else:
+#             uniqueStations[name] = True
+
+#         if station[stationID]:
+#             stations.append(station)
+
+#     return stations

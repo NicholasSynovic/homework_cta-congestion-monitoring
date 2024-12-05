@@ -39,15 +39,17 @@ def app(
     trainAPI: TrainAPI,
     mdb: Driver,
 ) -> None:
-    data: List[DataFrame] | None = ingest(api=trainAPI)
+    while True:
+        data: List[DataFrame] | None = ingest(api=trainAPI)
 
-    df: DataFrame
-    for df in data:
-        if df is not None:
-            json: List[dict] = df.to_dict(orient="records")
-            mdb.writeDocuments(documents=json)
+        df: DataFrame
+        for df in data:
+            if df is not None:
+                print(df)
+                json: List[dict] = df.to_dict(orient="records")
+                mdb.writeDocuments(documents=json)
 
-    sleep(seconds=sleepSeconds)
+        sleep(seconds=sleepSeconds)
 
 
 @click.command()
@@ -88,7 +90,7 @@ def main(
     mdb_password: str,
     mdb_uri: str,
     cta_key: str,
-    sleepSeconds: int = 300,
+    sleepSeconds: int = 60,
 ) -> None:
     trainAPI: TrainAPI = TrainAPI(key=cta_key)
     mdb: Driver = Driver(
