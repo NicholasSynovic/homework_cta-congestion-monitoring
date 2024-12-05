@@ -105,3 +105,18 @@ def getStations() -> List[dict]:
             cache.l_stops.append(doc)
 
     return cache.l_stops
+
+
+@app.get(path="/getRoutes")
+def getRoutes() -> dict[str, str]:
+    return {
+        "red": "Red",
+        "blue": "Blue",
+        "g": "Green",
+        "brn": "Brown",
+        "p": "Purple",
+        "pexp": "Purple Express",
+        "y": "Yellow",
+        "pnk": "Pink",
+        "o": "Orange",
+    }

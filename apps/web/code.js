@@ -1,5 +1,6 @@
-async function getStations() {
-    const url = "http://127.0.0.1:8001/getStations";
+async function getAPI(endpoint) {
+    const url = `http://127.0.0.1:8001/${endpoint}`;
+
     try {
         const response = await fetch(url);
         if (!response.ok) {
@@ -14,17 +15,20 @@ async function getStations() {
 }
 
 
-function createRouteButton() {
+function createRouteButtons() {
     const parentNode = document.getElementById("route-buttons")
 
-    getStations().then(
-        (stations) => {
-            for (let i = 0; i < stations.length; i++)  {
+    getAPI("getRoutes")
+        .then(
+        (routes) => {
+            const names = Object.values(routes)
+
+            for (let i = 0; i < names.length; i++)  {
                 const buttonContainer = document.createElement("div")
                 buttonContainer.className = "div-container"
 
                 const btn = document.createElement("button")
-                btn.innerHTML = "Hello World"
+                btn.innerHTML = names[i]
                 btn.type = "submit"
 
                 buttonContainer.appendChild(btn)
