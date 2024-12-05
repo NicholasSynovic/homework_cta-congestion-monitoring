@@ -1,4 +1,5 @@
 import os
+from collections import defaultdict
 from time import time
 from typing import List
 
@@ -86,6 +87,8 @@ def getStationAlerts() -> List[dict]:
 
 @app.get(path="/getStations")
 def getStations() -> List[dict]:
+    uniqueMapIDs = defaultdict(bool)
+
     if cache.checkTime():
         cache.l_station_alerts = []
 
@@ -93,6 +96,11 @@ def getStations() -> List[dict]:
 
         doc: dict
         for doc in cursor:
+            if uniqueMapIDs[doc["map_id"]]:
+                continue
+            else:
+                uniqueMapIDs[doc["map_id"]]
+
             doc["_id"] = str(doc["_id"])
             cache.l_stops.append(doc)
 
