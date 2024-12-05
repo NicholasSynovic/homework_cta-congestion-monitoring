@@ -87,7 +87,7 @@ def getStationAlerts() -> List[dict]:
 
 @app.get(path="/getStations")
 def getStations() -> List[dict]:
-    uniqueMapIDs = defaultdict(bool)
+    uniqueMapIDs: dict[str, bool] = defaultdict(bool)
 
     if cache.checkTime():
         cache.l_station_alerts = []
@@ -99,7 +99,7 @@ def getStations() -> List[dict]:
             if uniqueMapIDs[doc["map_id"]]:
                 continue
             else:
-                uniqueMapIDs[doc["map_id"]]
+                uniqueMapIDs[doc["map_id"]] = True
 
             doc["_id"] = str(doc["_id"])
             cache.l_stops.append(doc)
@@ -120,3 +120,24 @@ def getRoutes() -> dict[str, str]:
         "pnk": "Pink",
         "o": "Orange",
     }
+
+
+@app.get(path="/getSpecificStation")
+def getSpecificStation(stationID: str) -> List[dict]:
+    uniqueStations: dict[str, bool] = defaultdict(bool)
+    stations: List[dict] = []
+
+    getStations()
+
+    station: dict
+    for station in cache.l_stops:
+        name: str = station["station_name"]
+        if uniqueStations[name]:
+            continue
+        else:
+            uniqueStations[name] = True
+
+        if station[stationID]:
+            stations.append(station)
+
+    return stations

@@ -21,20 +21,60 @@ function createRouteButtons() {
     getAPI("getRoutes")
         .then(
         (routes) => {
-            const names = Object.values(routes)
+                const values = Object.values(routes)
+                const keys = Object.keys(routes)
 
-            for (let i = 0; i < names.length; i++)  {
-                const buttonContainer = document.createElement("div")
-                buttonContainer.className = "div-container"
+                for (let idx = 0; idx < values.length; idx++)  {
+                    const buttonContainer = document.createElement("div")
+                    buttonContainer.className = "div-container"
 
-                const btn = document.createElement("button")
-                btn.innerHTML = names[i]
-                btn.type = "submit"
+                    const btn = document.createElement("button")
+                    btn.id = keys[idx]
+                    btn.type = "submit"
+                    btn.innerHTML = values[idx]
+                    btn.setAttribute("onclick", "createRouteStops(this)")
 
-                buttonContainer.appendChild(btn)
-                parentNode.appendChild(buttonContainer)
+                    buttonContainer.appendChild(btn)
+                    parentNode.appendChild(buttonContainer)
             }
 
         }
     )
+}
+
+function reset() {
+    const parentNode = document.getElementById("route-buttons")
+
+    while (parentNode.firstChild) {
+        parentNode.removeChild(parentNode.lastChild)
+    }
+
+    createRouteButtons()
+}
+
+function createRouteStops(element) {
+    const parentNode = document.getElementById("route-buttons")
+
+    while (parentNode.firstChild) {
+        parentNode.removeChild(parentNode.lastChild)
+    }
+
+    getAPI(`getSpecificStation?stationID=${element.id}`)
+        .then(
+            (stations) => {
+                for (let idx = 0; idx < stations.length; idx++) {
+                    const buttonContainer = document.createElement("div")
+                    buttonContainer.className = "div-container"
+
+                    const btn = document.createElement("button")
+                    btn.id = stations[idx]["stop_id"]
+                    btn.type = "submit"
+                    btn.innerHTML = stations[idx]["station_name"]
+                    btn.setAttribute("onclick", "createRouteStops(this)")
+
+                    buttonContainer.appendChild(btn)
+                    parentNode.appendChild(buttonContainer)
+                }
+            }
+        )
 }
