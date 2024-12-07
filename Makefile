@@ -1,9 +1,10 @@
+GIT_TAG := $(shell git --no-pager tag | tail -n 1)
+
 build:
+	poetry version $(GIT_TAG)
+	poetry version --short > cta/_version
 	poetry build
 	pip install dist/*.tar.gz
-
-build-docs:
-	sphinx-build --builder html src-docs build-docs
 
 create-dev:
 	pre-commit install
@@ -15,6 +16,3 @@ create-dev:
 		poetry install; \
 		deactivate; \
 	)
-
-create-docs:
-	sphinx-apidoc src --output-dir src-docs --maxdepth 100 --separate

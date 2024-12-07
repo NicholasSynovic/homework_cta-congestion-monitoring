@@ -1,5 +1,5 @@
 default_language_version:
-    python: python3.12
+    python: python3.10
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.5.0
@@ -22,11 +22,11 @@ repos:
       - id: sort-simple-yaml
       - id: trailing-whitespace
 
-  - repo: https://github.com/regebro/pyroma
-    rev: "4.2"
-    hooks:
-      - id: pyroma
-        files: '\.toml$'
+  # - repo: https://github.com/regebro/pyroma
+  #   rev: "4.2"
+  #   hooks:
+  #     - id: pyroma
+  #       files: '\.toml$'
 
   - repo: https://github.com/PyCQA/isort
     rev: 5.13.2
@@ -44,7 +44,6 @@ repos:
     rev: 7.1.0
     hooks:
       - id: flake8
-        args: [--ignore=E501]
         files: '\.py$'
 
   - repo: https://github.com/PyCQA/bandit
