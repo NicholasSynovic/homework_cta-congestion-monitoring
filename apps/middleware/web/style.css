@@ -1,0 +1,14 @@
+#bordered {
+    border: 1px solid black;
+}
+
+#centered {
+    margin: auto;
+    padding: 10px;
+    text-align: center;
+}
+
+.div-container {
+    margin: auto;
+    width: 100%;
+}
