@@ -22,7 +22,7 @@ async function getAPI(endpoint) {
 
 function reset() {
     // Remove all buttons on the screen except the `Home` button
-    const parentNode = document.getElementById("route-buttons")
+    const parentNode = document.getElementById("content")
 
     while (parentNode.firstChild) {
         parentNode.removeChild(parentNode.lastChild)
@@ -30,7 +30,7 @@ function reset() {
 }
 
 function createRoutes() {
-    const parentNode = document.getElementById("content");
+    const parentNodes = document.querySelectorAll(".s-content");
 
     getAPI("getRoutes")
         .then((routes) => {
