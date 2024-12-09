@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Line Schedule</title>
+    <!-- Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <!-- Sidebar toggle button -->
+        <button id="toggleSidebarBtn">&#9776;</button>
+        <button id="homepageBtn">
+            <a href="homepage.html" style="color:white; text-decoration:none;">⌂</a>
+        </button>
+
+        <!-- Sidebar content -->
+        <div class="s-content">
+            <!-- Red Line -->
+            <div class="sidebar-link red-line" data-bs-toggle="collapse" data-bs-target="#redLineStations" aria-expanded="false" aria-controls="redLineStations ">
+                Red Line
+            </div>
+            <div class="collapse station-list" id="RedLineStations">
+            </div>
+
+            <!-- Blue Line -->
+            <div class="sidebar-link blue-line" data-bs-toggle="collapse" data-bs-target="#blueLineStations" aria-expanded="false" aria-controls="blueLineStations">
+                Blue Line
+            </div>
+            <div class="collapse station-list" id="BlueLineStations">
+            </div>
+
+            <!-- Brown Line -->
+            <div class="sidebar-link brn-line" data-bs-toggle="collapse" data-bs-target="#brownLineStations" aria-expanded="false" aria-controls="brownLineStations">
+                Brown Line
+            </div>
+            <div class="collapse station-list" id="BrownLineStations">
+            </div>
+
+            <!-- Green Line -->
+            <div class="sidebar-link g-line" data-bs-toggle="collapse" data-bs-target="#greenLineStations" aria-expanded="false" aria-controls="greenLineStations">
+                Green Line
+            </div>
+            <div class="collapse station-list" id="GreenLineStations">
+            </div>
+
+            <!-- Orange Line -->
+            <div class="sidebar-link o-line" data-bs-toggle="collapse" data-bs-target="#orangeLineStations" aria-expanded="false" aria-controls="orangeLineStations">
+                Orange Line
+            </div>
+            <div class="collapse station-list" id="OrangeLineStations">
+            </div>
+
+            <!-- Pink Line -->
+            <div class="sidebar-link pnk-line" data-bs-toggle="collapse" data-bs-target="#pinkLineStations" aria-expanded="false" aria-controls="pinkLineStations">
+                Pink Line
+            </div>
+            <div class="collapse station-list" id="PinkLineStations">
+            </div>
+
+            <!-- Purple Line -->
+            <div class="sidebar-link p-line" data-bs-toggle="collapse" data-bs-target="#purpleLineStations" aria-expanded="false" aria-controls="purpleLineStations">
+                Purple Line
+            </div>
+            <div class="collapse station-list" id="PurpleLineStations">
+            </div>
+
+            <!-- Yellow Line -->
+            <div class="sidebar-link y-line" data-bs-toggle="collapse" data-bs-target="#yellowLineStations" aria-expanded="false" aria-controls="yellowLineStations">
+                Yellow Line
+            </div>
+            <div class="collapse station-list" id="YellowLineStations">
+            </div>
+        </div>
+    </div>
+
+    <!-- Train Information Section -->
+    <div id="content">
+        <!-- Header Bar -->
+        <div class="header-bar">
+            <span class="station-name">[Station Name]</span>
+            <span class="live-time" id="liveTime"></span>
+        </div>
+
+        <!-- Direction Subtitle 1 -->
+        <div class="direction-subtitle">
+            Toward [Direction 1]
+        </div>
+
+        <!-- Train Schedule Grid 1 -->
+        <div class="schedule-grid">
+            <div class="train-line">
+                <div>
+                    <span class="line-name">[Train Line]</span>
+                    <span class="delay-status">[Delay Notification]</span>
+                </div>
+                <span class="arrival-times">[Times]</span>
+            </div>
+        </div>
+
+        <!-- Direction Subtitle 2 -->
+        <div class="direction-subtitle">
+            Toward [Direction 2]
+        </div>
+
+        <!-- Train Schedule Grid 2 -->
+        <div class="schedule-grid">
+            <div class="train-line">
+                <div>
+                    <span class="line-name">[Train Line]</span>
+                    <span class="delay-status">[Delay Notification]</span>
+                </div>
+                <span class="arrival-times">[Times]</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap and custom JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./script.js" onload="initialize()"></script>
+</body>
+</html>
