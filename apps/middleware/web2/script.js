@@ -123,6 +123,9 @@ function createTrains(element) {
         stationNameElement.textContent = stationName;
     }
 
+    // updates the title when function is called
+    document.title = `${stationName} Station`
+
     // define and clear content in directions and train listings
     const scheduleGrids = contentContainer.querySelectorAll(".schedule-grid");
     const directionSubtitles = contentContainer.querySelectorAll(".direction-subtitle");
